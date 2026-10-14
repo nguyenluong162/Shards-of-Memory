@@ -1,0 +1,49 @@
+[
+  {
+    "id": "EV-01",
+    "name": "Điện thoại thu giữ của Trương Nguyên Minh",
+    "type": "device",
+    "phase": 1,
+    "description": "Chiếc smartphone cá nhân bị niêm phong và thu giữ phục vụ công tác điều tra. Hệ thống bảo mật PIN 4 số đang ngăn chặn việc truy xuất dữ liệu.",
+    "locationFound": "Hiện trường Vụ án 20:10",
+    "isUnlocked": true,
+    "thumbnailUrl": "/evidence/phase1/01.JPG"
+  },
+  {
+    "id": "EV-02",
+    "name": "Thư viện ảnh bộ nhớ NAND khôi phục",
+    "type": "photo",
+    "phase": 1,
+    "description": "Tập hợp các hình ảnh kỷ niệm học đường và ảnh chụp ẩn được trích xuất sau khi mở khóa điện thoại.",
+    "locationFound": "Bộ nhớ trong điện thoại Trương Nguyên Minh",
+    "isUnlocked": false,
+    "thumbnailUrl": "/evidence/phase1/20.jpeg"
+  },
+  {
+    "id": "EV-03",
+    "name": "Tệp ghi chú an ninh Kho B",
+    "type": "document",
+    "phase": 1,
+    "description": "Ghi chép mật ghi nhận quy trình bảo mật cửa kho B đồng bộ theo dấu thời gian trên camera giám sát.",
+    "locationFound": "Ứng dụng Ghi chú điện thoại",
+    "isUnlocked": false
+  },
+  {
+    "id": "EV-04",
+    "name": "Hệ thống khóa điện tử Cửa Nhà kho B",
+    "type": "location",
+    "phase": 2,
+    "description": "Bảng điều khiển số công nghiệp gắn trên cánh cửa sắt kiên cố của Kho B. Yêu cầu nhập đúng chuỗi mã truy cập.",
+    "locationFound": "Cụm nhà kho phụ - Phân khu B",
+    "isUnlocked": false
+  },
+  {
+    "id": "EV-05",
+    "name": "Tài liệu lưu trữ bên trong Kho B",
+    "type": "document",
+    "phase": 2,
+    "description": "Các hồ sơ, mẫu vật và manh mối phục vụ giai đoạn điều tra tiếp theo được tìm thấy sau khi mở cánh cửa kho B.",
+    "locationFound": "Kệ lưu trữ A-04, Nhà kho B",
+    "isUnlocked": false
+  }
+]

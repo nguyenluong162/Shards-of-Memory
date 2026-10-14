@@ -1,0 +1,35 @@
+{
+  "caseId": "CASE 20:10",
+  "caseTitle": "SHARDS OF MEMORY",
+  "department": "BAN CHUYÊN ÁN HÌNH SỰ — ĐỘI GIÁM ĐỊNH KỸ THUẬT SỐ",
+  "adminPasscode": "gm2010",
+  "initialKnownFacts": [
+    {
+      "id": "fact-01",
+      "phase": 1,
+      "title": "Thiết bị thu giữ tại hiện trường",
+      "description": "Chiếc điện thoại thuộc về Trương Nguyên Minh đã được đưa vào diện thu giữ vật chứng. Khóa màn hình đang hoạt động.",
+      "source": "Biên bản khám nghiệm hiện trường",
+      "isImportant": true
+    },
+    {
+      "id": "fact-02",
+      "phase": 1,
+      "title": "Dấu mốc kỷ niệm 20:10",
+      "description": "Vụ việc xảy ra gắn liền với các mốc thời gian đặc biệt của niên khóa A2K49 và thời điểm kỷ niệm 20/10.",
+      "source": "Hồ sơ đối tượng điều tra",
+      "isImportant": false
+    }
+  ],
+  "initialNotes": [
+    {
+      "id": "note-init-1",
+      "title": "Nhiệm vụ điều tra ban đầu (Phase 1)",
+      "content": "Cần tìm cách mở khóa chiếc điện thoại cá nhân của Trương Nguyên Minh để tiếp cận thư viện ảnh và ghi chú cá nhân.\nKiểm tra kỹ các dữ liệu kỷ niệm, mốc ngày tháng quan trọng.",
+      "category": "Theory",
+      "isPinned": true,
+      "createdAt": "2026-10-14T20:00:00.000Z",
+      "updatedAt": "2026-10-14T20:00:00.000Z"
+    }
+  ]
+}

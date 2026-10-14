@@ -1,0 +1,62 @@
+[
+  {
+    "id": "photo-01",
+    "title": "IMG_0842.JPG",
+    "filename": "01.JPG",
+    "url": "/evidence/phase1/01.JPG",
+    "date": "20/05/2023 10:16:54",
+    "device": "Canon EOS 700D",
+    "album": "Kỷ yếu Lớp A2",
+    "resolution": "5184 x 3456",
+    "isClue": false,
+    "notes": "Lễ Bế giảng Niên khóa 2020 - 2023"
+  },
+  {
+    "id": "photo-02",
+    "title": "IMG_2117.JPEG",
+    "filename": "17.jpeg",
+    "url": "/evidence/phase1/17.jpeg",
+    "date": "14/11/2022 15:30:12",
+    "device": "Smartphone",
+    "album": "Dã ngoại Cuối năm",
+    "resolution": "1024 x 768",
+    "isClue": false,
+    "notes": "Ảnh chụp nhóm cắm trại ngoại khóa"
+  },
+  {
+    "id": "photo-03",
+    "title": "DSC_4920.JPEG",
+    "filename": "20.jpeg",
+    "url": "/evidence/phase1/20.jpeg",
+    "date": "26/10/2022 17:43:17",
+    "device": "NIKON D700",
+    "album": "Sinh hoạt Ngoại khóa",
+    "resolution": "2128 x 1416",
+    "isClue": false,
+    "notes": "Hội thảo CLB Khoa học & Kỹ thuật"
+  },
+  {
+    "id": "photo-04",
+    "title": "IMG_3533.JPEG",
+    "filename": "33.jpeg",
+    "url": "/evidence/phase1/33.jpeg",
+    "date": "30/05/2023 16:57:50",
+    "device": "Canon EOS 700D",
+    "album": "Kỷ yếu Lớp A2",
+    "resolution": "1086 x 724",
+    "isClue": false,
+    "notes": "Họp mặt chia tay phòng máy thí nghiệm"
+  },
+  {
+    "id": "photo-05",
+    "title": "IMG_7921_SURVEILLANCE_EXPORT.JPG",
+    "filename": "phase2_surveillance.jpg",
+    "url": "/evidence/phase2/phase2_surveillance.jpg",
+    "date": "12/03/2023 16:03:49",
+    "device": "Apple iPhone 11",
+    "album": "Khôi phục từ bộ nhớ đệm",
+    "resolution": "4032 x 2268",
+    "isClue": true,
+    "notes": "Dữ liệu ảnh chụp khu vực hành lang phụ dẫn ra Cụm Kho B. Ghi nhận thời gian hệ thống: 16:03:49."
+  }
+]

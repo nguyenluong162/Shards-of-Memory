@@ -1,0 +1,34 @@
+[
+  {
+    "id": "pnote-01",
+    "title": "Quy trình kiểm tra hệ thống Nhà kho B",
+    "date": "14/03/2023 21:15",
+    "content": "Cần hoàn tất kiểm kê kho tài liệu B trước ngày 20.\n\nLưu ý an ninh quan trọng:\n- Bảng điều khiển điện tử ở cửa kho B đã được đổi cơ chế tự động đồng bộ theo dấu thời gian (timestamp: giờ-phút-giây) từ ảnh trích xuất của hệ thống giám sát hành lang.\n- Khi đèn trạng thái trên keypad chuyển sang vàng, nhập đúng 6 chữ số timestamp để mở chốt điện từ.\n- Tuyệt đối không lưu mật mã lên giấy tờ hành chính.",
+    "isClue": true,
+    "tags": ["Kho B", "An ninh", "Quan trọng"]
+  },
+  {
+    "id": "pnote-02",
+    "title": "Họp mặt cựu học sinh A2K49",
+    "date": "02/05/2023 09:20",
+    "content": "- Đã liên hệ bên in ấn lấy 35 cuốn kỷ yếu niên khóa.\n- Chốt địa điểm nhà hàng trước 3 ngày.\n- Nhắc Bình gửi file ảnh gốc thiết kế khung lưu niệm (bản in Scrapbook).\n- Tránh thực đơn có hải sản cho bàn số 2.",
+    "isClue": false,
+    "tags": ["Lớp học", "Kỷ niệm"]
+  },
+  {
+    "id": "pnote-03",
+    "title": "Danh mục công việc tháng 10",
+    "date": "18/10/2023 08:30",
+    "content": "1. Rà soát lại hồ sơ lưu trữ thiết bị viễn thông.\n2. Bàn giao chìa khóa tủ hồ sơ kỹ thuật số cho ban thanh tra.\n3. Gặp bác sĩ tái khám mắt vào sáng thứ Năm.\n4. Đổi sim dự phòng cho thiết bị liên lạc khẩn cấp.",
+    "isClue": false,
+    "tags": ["Công việc"]
+  },
+  {
+    "id": "pnote-04",
+    "title": "Mảnh ký ức (Nháp nhật ký)",
+    "date": "19/10/2023 23:45",
+    "content": "Thời gian trôi qua quá nhanh. Đã bao nhiêu năm kể từ ngày ấy... Những ký ức tưởng chừng đã bị chôn vùi trong lớp bụi thời gian, nhưng mỗi mảnh vỡ (shards) vẫn luôn nhức nhối mỗi khi tháng 10 trở lại.\n\nLiệu sự thật có thể mãi mãi được giữ kín sau cánh cửa đó?",
+    "isClue": false,
+    "tags": ["Cá nhân"]
+  }
+]
