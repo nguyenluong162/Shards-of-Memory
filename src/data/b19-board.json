@@ -1,6 +1,25 @@
 {
-  "sourceReady": false,
+  "sourceReady": true,
   "imagePath": "",
-  "pieces": [],
-  "adminNote": "Chưa có dữ liệu thế cờ gốc do BTC cung cấp. Có thể đặt ảnh trong public/evidence/phase3/ và điền imagePath, hoặc điền pieces theo dạng { square: 'a1', piece: 'white-rook' }. Sau đó đặt sourceReady thành true."
+  "pieces": [
+    { "square": "b8", "piece": "white-king" },
+    { "square": "f8", "piece": "white-bishop" },
+    { "square": "h8", "piece": "black-knight" },
+    { "square": "b7", "piece": "white-pawn" },
+    { "square": "e7", "piece": "white-rook" },
+    { "square": "c6", "piece": "white-knight" },
+    { "square": "d6", "piece": "white-pawn" },
+    { "square": "c5", "piece": "white-knight" },
+    { "square": "f4", "piece": "white-queen" },
+    { "square": "g4", "piece": "black-queen" },
+    { "square": "b3", "piece": "black-knight" },
+    { "square": "d3", "piece": "black-bishop" },
+    { "square": "f2", "piece": "black-pawn" },
+    { "square": "g3", "piece": "black-pawn" },
+    { "square": "h3", "piece": "black-pawn" },
+    { "square": "b1", "piece": "black-rook" },
+    { "square": "c1", "piece": "black-bishop" },
+    { "square": "h1", "piece": "black-king" }
+  ],
+  "adminNote": "Thế cờ Phase 3 được hardcode theo ảnh tham chiếu do BTC cung cấp."
 }

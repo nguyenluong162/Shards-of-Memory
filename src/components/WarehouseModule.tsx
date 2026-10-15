@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Archive, ChevronRight, DoorOpen, LockKeyhole, MapPin, ShieldAlert, Warehouse } from 'lucide-react';
+import { ChevronRight, DoorOpen, Footprints, LockKeyhole, MapPin, ShieldAlert, Warehouse } from 'lucide-react';
 import { useGameState } from '../context/GameStateContext';
 import { playAudio } from '../utils/audio';
 import { BackButton, NumericKeypad, PageHeading } from './ui';
@@ -15,6 +15,7 @@ export function WarehouseModule() {
   } = useGameState();
   const [code, setCode] = useState('');
   const [status, setStatus] = useState<'idle' | 'error' | 'opening'>('idle');
+  const [interiorStage, setInteriorStage] = useState<'threshold' | 'walking' | 'arrived'>('threshold');
 
   const submit = () => {
     if (!code || status !== 'idle') return;
@@ -23,7 +24,7 @@ export function WarehouseModule() {
     if (accepted.includes(normalized)) {
       setStatus('opening');
       if (soundEnabled) playAudio.heavyDoorUnlock();
-      window.setTimeout(unlockWarehouseB, 1200);
+      window.setTimeout(unlockWarehouseB, 1800);
     } else {
       setStatus('error');
       if (soundEnabled) playAudio.errorBuzz();
@@ -42,26 +43,44 @@ export function WarehouseModule() {
     return () => window.removeEventListener('keydown', handler);
   });
 
+  useEffect(() => {
+    if (interiorStage !== 'walking') return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const timer = window.setTimeout(() => setInteriorStage('arrived'), reducedMotion ? 80 : 6200);
+    return () => window.clearTimeout(timer);
+  }, [interiorStage]);
+
+  const enterWarehouse = () => {
+    if (interiorStage !== 'threshold') return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setInteriorStage('walking');
+    if (soundEnabled && !reducedMotion) playAudio.slowFootsteps();
+  };
+
   if (warehouseBUnlocked) {
+    const isWalking = interiorStage === 'walking';
+    const hasArrived = interiorStage === 'arrived';
     return (
       <>
-        <PageHeading eyebrow="SITE ACCESS / PHASE 02 COMPLETE" title="Warehouse B" detail="Cửa kho đã mở · khu lưu trữ bên trong an toàn để tiếp cận." action={<BackButton onClick={() => setActiveModule('phone')} label="SEIZED PHONE" />} />
-        <section className="warehouse-interior">
-          <div className="interior-scene">
+        <PageHeading eyebrow="SITE ACCESS / PHASE 02 COMPLETE" title="Warehouse B" detail={hasArrived ? 'Đã tiếp cận cửa lưu trữ B-19.' : isWalking ? 'Đang tiến sâu vào hành lang kho lưu trữ…' : 'Cửa kho đã mở · lối vào bên trong đã sẵn sàng.'} action={<BackButton onClick={() => setActiveModule('phone')} label="SEIZED PHONE" />} />
+        <section className={`warehouse-interior stage-${interiorStage}`}>
+          <div className={`interior-scene ${interiorStage}`}>
             <div className="ceiling-light" />
-            <div className="warehouse-perspective">
+            <div className={`warehouse-perspective ${interiorStage}`}>
               <div className="shelf left"><i/><i/><i/><i/></div>
               <div className="archive-door"><span>B—19</span><small>RESTRICTED ARCHIVE</small><LockKeyhole/></div>
               <div className="shelf right"><i/><i/><i/><i/></div>
             </div>
+            {interiorStage === 'threshold' && <button className="enter-warehouse" onClick={enterWarehouse}><DoorOpen/><span><small>THRESHOLD READY</small><strong>ENTER WAREHOUSE B</strong></span><ChevronRight/></button>}
+            {isWalking && <div className="walking-status" aria-live="polite"><Footprints/><span><small>APPROACHING RESTRICTED ARCHIVE</small><strong>CỘP · · · CỘP · · ·</strong></span></div>}
             <div className="scene-caption"><span>CAM 02 · WAREHOUSE B · LIVE</span><span>ACCESS ROUTE SECURED</span></div>
           </div>
           <aside className="interior-brief panel">
-            <p className="eyebrow">RECOVERED LOCATION</p>
-            <h3>Kho lưu trữ nội bộ</h3>
-            <p>Lối đi sâu hơn dẫn tới cửa thép B-19. Một terminal bàn cờ và bảng kiểm soát truy cập được lắp bên cạnh cửa.</p>
-            <div className="location-facts"><div><MapPin/><span>ZONE</span><strong>SECTOR B / LOWER ARCHIVE</strong></div><div><DoorOpen/><span>STATUS</span><strong>WAREHOUSE UNLOCKED</strong></div></div>
-            <button className="solid-action wide" onClick={() => setActiveModule('b19')}>PROCEED TO B-19 <ChevronRight size={16}/></button>
+            <p className="eyebrow">{hasArrived ? 'RECOVERED LOCATION' : 'ENTRY SEQUENCE'}</p>
+            <h3>{hasArrived ? 'Kho lưu trữ nội bộ' : isWalking ? 'Đang tiến đến B-19' : 'Lối vào Warehouse B'}</h3>
+            <p>{hasArrived ? 'Lối đi kết thúc tại cửa thép B-19. Một terminal bàn cờ và bảng kiểm soát truy cập được lắp bên cạnh cửa.' : isWalking ? 'Âm thanh bước chân vang trong hành lang. Một khối cửa thép đang dần hiện ra ở cuối lối đi.' : 'Không phát hiện chuyển động bên trong. Bắt đầu tiếp cận để xác định điểm đến cuối hành lang.'}</p>
+            <div className="location-facts"><div><MapPin/><span>ZONE</span><strong>SECTOR B / LOWER ARCHIVE</strong></div><div><DoorOpen/><span>STATUS</span><strong>{hasArrived ? 'B-19 LOCATED' : isWalking ? 'ROUTE IN PROGRESS' : 'WAREHOUSE UNLOCKED'}</strong></div></div>
+            {hasArrived && <button className="solid-action wide" onClick={() => setActiveModule('b19')}>PROCEED TO B-19 <ChevronRight size={16}/></button>}
           </aside>
         </section>
       </>
@@ -73,8 +92,10 @@ export function WarehouseModule() {
       <PageHeading eyebrow="PHYSICAL ACCESS / SECURITY NODE WB-02" title="Warehouse B" detail="Cửa kho công nghiệp · keypad điện tử ngoại tuyến." action={<BackButton onClick={() => setActiveModule('phone')} label="SEIZED PHONE" />} />
       <section className="warehouse-entrance">
         <div className={`warehouse-door ${status === 'opening' ? 'opening' : ''}`}>
+          <div className="warehouse-depth-preview"><span>ACCESS ROUTE OPEN</span><i/></div>
+          <div className="warehouse-door-leaf left"><div className="door-panels"><span/><span/><span/><span/><span/></div></div>
+          <div className="warehouse-door-leaf right"><div className="door-panels"><span/><span/><span/><span/><span/></div></div>
           <div className="door-warning"><ShieldAlert/><span>AUTHORIZED ACCESS ONLY</span></div>
-          <div className="door-panels"><span/><span/><span/><span/><span/></div>
           <div className="door-label"><small>STORAGE SECTOR</small><strong>B</strong></div>
           <div className="door-seam"/>
           <div className="camera-code">CAM 06 · 00:18:42:11</div>

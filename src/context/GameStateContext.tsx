@@ -48,6 +48,7 @@ interface GameContextValue extends GameState {
   assignments: Assignment[];
   setAssignments: (assignments: Assignment[]) => void;
   enterCase: () => void;
+  returnToOpening: () => void;
   unlockPhone: () => void;
   lockPhone: () => void;
   unlockWarehouseB: () => void;
@@ -262,6 +263,10 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
     assignments,
     setAssignments,
     enterCase,
+    returnToOpening: () => {
+      setState((prev) => ({ ...prev, hasEnteredCase: false }));
+      setIsAdminOpen(false);
+    },
     unlockPhone,
     lockPhone,
     unlockWarehouseB,
@@ -276,6 +281,7 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
     resetGame: () => {
       setState({ ...initialState, knownFacts: [...initialState.knownFacts], evidenceList: [...initialState.evidenceList] });
       setActiveModule('phone');
+      setIsAdminOpen(false);
       notify('info', 'Đã reset game', 'Toàn bộ tiến trình đã trở về mặc định.');
     },
   }), [state, activeModule, isAdminOpen, toasts, dismissToast, assignments, notify]);
