@@ -1,0 +1,46 @@
+[
+  {
+    "id": "SUS-01",
+    "name": "Trương Nguyên Minh",
+    "role": "Cựu Lớp trưởng A2K49 // Kỹ sư mạng",
+    "age": 28,
+    "relationship": "Người sở hữu chiếc điện thoại bị thu giữ và là người kiểm soát an ninh Kho B.",
+    "alibi": "Khai nhận có mặt tại Kho B chiều 14/10 để kiểm kê kỷ yếu và bàn giao tài liệu, nhưng cho rằng điện thoại bị đánh cắp trước 19:30.",
+    "statement": "Tôi chỉ muốn giữ lại những kỷ niệm đẹp của lớp... Tôi không hề biết tại sao phân khu B-19 lại bị lục soát.",
+    "notes": "Có dấu vân tay trên cửa kho B. Tuy nhiên lời khai về việc mất điện thoại đang được kiểm chứng.",
+    "isPrimarySuspect": false
+  },
+  {
+    "id": "SUS-02",
+    "name": "Lê Thanh Bình",
+    "role": "Chủ Studio Thiết kế // Phụ trách in ấn kỷ yếu",
+    "age": 28,
+    "relationship": "Bạn học cùng lớp, phụ trách thiết kế khung ảnh lưu niệm và quản lý file gốc.",
+    "alibi": "Khai rằng ở xưởng in suốt tối 14/10.",
+    "statement": "Tôi chỉ nhận thiết kế và gửi file cho Minh. Tối hôm đó tôi không đến gần khu nhà kho.",
+    "notes": "Dữ liệu camera và định vị xe bán tải 30F-512.98 mâu thuẫn hoàn toàn với lời khai ngoại phạm. Xe của đối tượng rời lối thoát hiểm lúc 20:08.",
+    "isPrimarySuspect": true
+  },
+  {
+    "id": "SUS-03",
+    "name": "Đỗ Văn Quý",
+    "role": "Cựu Quản lý Thiết bị // Thầy giáo phụ trách phòng máy",
+    "age": 45,
+    "relationship": "Người ký biên bản bàn giao thiết bị số 84/BB-CS2010.",
+    "alibi": "Có mặt tại quán cà phê cách trường 5km từ 19:15 đến 21:00 (có hóa đơn và nhân chứng).",
+    "statement": "Tôi đã bàn giao toàn bộ chìa khóa và thẻ an ninh cho đại diện lớp từ năm ngoái.",
+    "notes": "Bằng chứng ngoại phạm vững chắc, không có mâu thuẫn với dữ liệu định vị.",
+    "isPrimarySuspect": false
+  },
+  {
+    "id": "SUS-04",
+    "name": "Hoàng Thị Nga",
+    "role": "Thành viên Ban Liên Lạc Cựu Học Sinh",
+    "age": 28,
+    "relationship": "Người đầu tiên phát hiện cửa kho B bị xâm nhập và báo cho cơ quan chức năng.",
+    "alibi": "Đến kho B lúc 20:15 để chuẩn bị quà lưu niệm theo lịch hẹn.",
+    "statement": "Khi tôi đến thì thấy đèn an ninh nhấp nháy đỏ và cửa sau hé mở... Tôi lập tức gọi điện báo án.",
+    "notes": "Nhân chứng tin cậy, lịch sử cuộc gọi và thời gian đến khớp với ghi nhận hiện trường.",
+    "isPrimarySuspect": false
+  }
+]

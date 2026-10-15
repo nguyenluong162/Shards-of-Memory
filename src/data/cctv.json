@@ -1,0 +1,42 @@
+[
+  {
+    "id": "CAM-01",
+    "name": "Cổng Chính Khuôn Viên",
+    "location": "Cổng A - Trạm gác số 1",
+    "timestamp": "14/10 18:45:20",
+    "status": "RECORDED",
+    "description": "Góc quay bao quát xe ra vào cổng chính. Ghi nhận xe bán tải màu đen đi vào lúc 18:42.",
+    "imageUrl": "/evidence/poster/Shards of Memory Investigation Board.png",
+    "clueInfo": "Biển số xe che khuất một phần bùn đất: 29A-89..."
+  },
+  {
+    "id": "CAM-02",
+    "name": "Bãi Đỗ Xe Phía Đông",
+    "location": "Bãi xe cán bộ & nhân viên",
+    "timestamp": "14/10 19:15:02",
+    "status": "RECORDED",
+    "description": "Khu vực bãi đỗ xe phụ. Đèn đường chập chờn, phát hiện bóng người di chuyển về phía Nhà kho B.",
+    "imageUrl": "/evidence/poster/Nostalgic School Memory Scrapbook Frame.png",
+    "clueInfo": "Đối tượng mang theo túi đựng thiết bị kích thước khoảng 40x30cm."
+  },
+  {
+    "id": "CAM-03",
+    "name": "Hành Lang Dẫn Vào Kho B",
+    "location": "Hành lang phụ - Cụm B",
+    "timestamp": "12/03 16:03:49",
+    "status": "ONLINE",
+    "description": "Khu vực kiểm soát an ninh cửa kho B. Bản ghi khớp hoàn toàn với timestamp trích xuất trong Phase 2.",
+    "imageUrl": "/evidence/phase2/phase2_surveillance.jpg",
+    "clueInfo": "Chốt khóa cửa kho B ghi nhận phiên truy cập hợp lệ lúc 16:03:49."
+  },
+  {
+    "id": "CAM-04",
+    "name": "Lối Thoát Hiểm Phía Sau",
+    "location": "Cửa sau tiếp giáp đường dân sinh",
+    "timestamp": "14/10 20:08:15",
+    "status": "RECORDED",
+    "description": "Cửa thoát hiểm bị mở cưỡng bức lúc 20:08. Một phương tiện di chuyển tăng tốc rời đi 2 phút trước thời điểm 20:10.",
+    "imageUrl": "/evidence/poster/Shards of Memory Investigation Board.png",
+    "clueInfo": "Thời điểm xe tăng tốc rời đi: 20:08:15. Khớp với trạm thu phí cách đó 4km."
+  }
+]

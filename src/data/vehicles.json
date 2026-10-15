@@ -1,0 +1,35 @@
+[
+  {
+    "id": "VEH-01",
+    "licensePlate": "29A-892.41",
+    "ownerName": "Trương Nguyên Minh",
+    "vehicleType": "Sedan 4 chỗ (Mazda 3)",
+    "color": "Xám lông chuột",
+    "seenAt": "14/10 17:30",
+    "location": "Bãi đỗ xe Cổng Phụ",
+    "notes": "Xe đỗ cố định từ chiều, động cơ đã nguội khi lực lượng điều tra tiếp cận hiện trường.",
+    "isSuspicious": false
+  },
+  {
+    "id": "VEH-02",
+    "licensePlate": "30F-512.98",
+    "ownerName": "Lê Thanh Bình",
+    "vehicleType": "Bán tải (Ford Ranger)",
+    "color": "Đen nhám",
+    "seenAt": "14/10 20:08",
+    "location": "Lối thoát hiểm sau & Trạm thu phí Km14",
+    "notes": "Ghi nhận vượt trạm thu phí Km14 lúc 20:22 với tốc độ cao. Dấu vết bùn đất bánh xe trùng khớp với hiện trường sau Nhà kho B.",
+    "isSuspicious": true
+  },
+  {
+    "id": "VEH-03",
+    "licensePlate": "29B-041.15",
+    "ownerName": "Đỗ Văn Quý",
+    "vehicleType": "SUV 7 chỗ (Toyota Fortuner)",
+    "color": "Trắng",
+    "seenAt": "14/10 19:40",
+    "location": "Trục đường chính phía Tây",
+    "notes": "Có camera hành trình ghi lại việc dừng xe mua thuốc lá, có bằng chứng ngoại phạm trước 20:00.",
+    "isSuspicious": false
+  }
+]
