@@ -1,0 +1,6 @@
+{
+  "sourceReady": false,
+  "imagePath": "",
+  "pieces": [],
+  "adminNote": "Chưa có dữ liệu thế cờ gốc do BTC cung cấp. Có thể đặt ảnh trong public/evidence/phase3/ và điền imagePath, hoặc điền pieces theo dạng { square: 'a1', piece: 'white-rook' }. Sau đó đặt sourceReady thành true."
+}

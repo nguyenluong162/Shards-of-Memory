@@ -20,16 +20,5 @@
       "source": "Hồ sơ đối tượng điều tra",
       "isImportant": false
     }
-  ],
-  "initialNotes": [
-    {
-      "id": "note-init-1",
-      "title": "Nhiệm vụ điều tra ban đầu (Phase 1)",
-      "content": "Cần tìm cách mở khóa chiếc điện thoại cá nhân của Trương Nguyên Minh để tiếp cận thư viện ảnh và ghi chú cá nhân.\nKiểm tra kỹ các dữ liệu kỷ niệm, mốc ngày tháng quan trọng.",
-      "category": "Theory",
-      "isPinned": true,
-      "createdAt": "2026-10-14T20:00:00.000Z",
-      "updatedAt": "2026-10-14T20:00:00.000Z"
-    }
   ]
 }

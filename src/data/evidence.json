@@ -45,5 +45,14 @@
     "description": "Các hồ sơ, mẫu vật và manh mối phục vụ giai đoạn điều tra tiếp theo được tìm thấy sau khi mở cánh cửa kho B.",
     "locationFound": "Kệ lưu trữ A-04, Nhà kho B",
     "isUnlocked": false
+  },
+  {
+    "id": "TL-02",
+    "name": "Nhật ký truy cập B-19",
+    "type": "document",
+    "phase": 3,
+    "description": "Bản ghi kiểm soát truy cập của phòng lưu trữ B-19, gồm thời gian và mã thẻ đã được hệ thống ghi nhận.",
+    "locationFound": "Terminal nội bộ, Phòng lưu trữ B-19",
+    "isUnlocked": false
   }
 ]

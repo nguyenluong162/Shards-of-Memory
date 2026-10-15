@@ -1,315 +1,290 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { GameState, CaseNote, KnownFact, EvidenceItem, PuzzlesConfig, CaseNoteCategory } from '../types';
-import puzzlesData from '../data/puzzles.json';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react';
 import evidenceData from '../data/evidence.json';
 import gameConfig from '../data/game-config.json';
-import { playAudio } from '../utils/audio';
+import puzzlesData from '../data/puzzles.json';
+import type {
+  Assignment,
+  GameState,
+  KnownFact,
+  ModuleId,
+  PuzzlesConfig,
+  ToastMessage,
+} from '../types';
 
-const STORAGE_KEY = 'CASE_20_10_GAME_STATE_V1';
+const STATE_KEY = 'CASE_20_10_V2_STATE';
+const ASSIGNMENT_KEY = 'CASE_20_10_PERSONNEL_V1';
 
-export type NavModuleId = 'dashboard' | 'phone' | 'warehouse' | 'b19' | 'cctv' | 'vehicles' | 'suspects';
+const initialState: GameState = {
+  currentPhase: 1,
+  phoneUnlocked: false,
+  warehouseBUnlocked: false,
+  b19Unlocked: false,
+  phase1Complete: false,
+  phase2Complete: false,
+  phase3Complete: false,
+  hintsEnabled: false,
+  soundEnabled: true,
+  knownFacts: gameConfig.initialKnownFacts as KnownFact[],
+  evidenceList: evidenceData as GameState['evidenceList'],
+  puzzles: puzzlesData as PuzzlesConfig,
+  hasEnteredCase: false,
+};
 
-export interface ToastMessage {
-  id: string;
-  type: 'success' | 'info' | 'warning' | 'alert';
-  title: string;
-  description: string;
-}
-
-interface GameStateContextType extends GameState {
-  activeModule: NavModuleId;
-  setActiveModule: (module: NavModuleId) => void;
+interface GameContextValue extends GameState {
+  activeModule: ModuleId;
+  setActiveModule: (module: ModuleId) => void;
+  isAdminOpen: boolean;
+  setIsAdminOpen: (open: boolean) => void;
   toasts: ToastMessage[];
   dismissToast: (id: string) => void;
+  assignments: Assignment[];
+  setAssignments: (assignments: Assignment[]) => void;
   enterCase: () => void;
-  // Note actions
-  addNote: (note: Omit<CaseNote, 'id' | 'createdAt' | 'updatedAt'>) => void;
-  updateNote: (id: string, updates: Partial<Omit<CaseNote, 'id' | 'createdAt'>>) => void;
-  deleteNote: (id: string) => void;
-  togglePinNote: (id: string) => void;
-  // Puzzle actions
   unlockPhone: () => void;
   lockPhone: () => void;
   unlockWarehouseB: () => void;
   lockWarehouseB: () => void;
-  updatePuzzlesConfig: (config: Partial<PuzzlesConfig>) => void;
-  toggleHints: () => void;
+  unlockB19: () => void;
+  lockB19: () => void;
+  resetPhase3: () => void;
   setPhase: (phase: number) => void;
-  // Admin actions
+  setHintsEnabled: (enabled: boolean) => void;
+  setSoundEnabled: (enabled: boolean) => void;
+  updatePuzzlesConfig: (config: Partial<PuzzlesConfig>) => void;
   resetGame: () => void;
-  isAdminOpen: boolean;
-  setIsAdminOpen: (open: boolean) => void;
 }
 
-const defaultPuzzles: PuzzlesConfig = puzzlesData as PuzzlesConfig;
-const defaultEvidence: EvidenceItem[] = evidenceData as EvidenceItem[];
-const initialFacts: KnownFact[] = gameConfig.initialKnownFacts;
-const initialNotes: CaseNote[] = gameConfig.initialNotes as CaseNote[];
+const GameContext = createContext<GameContextValue | null>(null);
 
-const defaultState: GameState = {
-  currentPhase: 1,
-  phoneUnlocked: false,
-  warehouseBUnlocked: false,
-  phase1Complete: false,
-  phase2Complete: false,
-  hintsEnabled: false,
-  notes: initialNotes,
-  knownFacts: initialFacts,
-  evidenceList: defaultEvidence,
-  puzzles: defaultPuzzles,
-  hasEnteredCase: false,
+const loadState = (): GameState => {
+  try {
+    const saved = localStorage.getItem(STATE_KEY);
+    if (!saved) return initialState;
+    const parsed = JSON.parse(saved) as Partial<GameState>;
+    const savedState = { ...parsed } as Partial<GameState> & { notes?: unknown };
+    delete savedState.notes;
+    return {
+      ...initialState,
+      ...savedState,
+      knownFacts: parsed.knownFacts ?? initialState.knownFacts,
+      evidenceList: parsed.evidenceList ?? initialState.evidenceList,
+      puzzles: { ...initialState.puzzles, ...(parsed.puzzles ?? {}) },
+    };
+  } catch {
+    return initialState;
+  }
 };
 
-const GameStateContext = createContext<GameStateContextType | undefined>(undefined);
+const loadAssignments = (): Assignment[] => {
+  try {
+    const saved = localStorage.getItem(ASSIGNMENT_KEY);
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+};
 
-export const GameStateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [state, setState] = useState<GameState>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        return {
-          ...defaultState,
-          ...parsed,
-          puzzles: { ...defaultState.puzzles, ...parsed.puzzles },
-        };
-      }
-    } catch (e) {
-      console.warn('Failed to load state from localStorage:', e);
-    }
-    return defaultState;
-  });
-
-  const [activeModule, setActiveModule] = useState<NavModuleId>('dashboard');
-  const [toasts, setToasts] = useState<ToastMessage[]>([]);
+export function GameStateProvider({ children }: { children: ReactNode }) {
+  const [state, setState] = useState<GameState>(loadState);
+  const [activeModule, setActiveModule] = useState<ModuleId>('phone');
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [assignments, setAssignmentState] = useState<Assignment[]>(loadAssignments);
 
-  // Sync to localStorage
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch (e) {
-      console.error('Failed to save state to localStorage:', e);
-    }
+    localStorage.setItem(STATE_KEY, JSON.stringify(state));
   }, [state]);
 
-  const addToast = (type: ToastMessage['type'], title: string, description: string) => {
-    const newToast: ToastMessage = {
-      id: Date.now().toString() + Math.random().toString(36).substring(2, 5),
-      type,
-      title,
-      description,
-    };
-    setToasts((prev) => [...prev, newToast]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== newToast.id));
-    }, 6000);
-  };
+  useEffect(() => {
+    localStorage.setItem(ASSIGNMENT_KEY, JSON.stringify(assignments));
+  }, [assignments]);
 
-  const dismissToast = (id: string) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
-  };
+  const notify = useCallback((tone: ToastMessage['tone'], title: string, detail: string) => {
+    const id = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    setToasts((items) => [...items, { id, tone, title, detail }]);
+    window.setTimeout(() => setToasts((items) => items.filter((item) => item.id !== id)), 5000);
+  }, []);
 
-  const enterCase = () => {
-    setState((prev) => ({ ...prev, hasEnteredCase: true }));
-    playAudio.accessGranted();
-  };
+  const dismissToast = useCallback((id: string) => {
+    setToasts((items) => items.filter((item) => item.id !== id));
+  }, []);
 
-  // Notes actions
-  const addNote = (noteData: Omit<CaseNote, 'id' | 'createdAt' | 'updatedAt'>) => {
-    const now = new Date().toISOString();
-    const newNote: CaseNote = {
-      id: 'note_' + Date.now().toString(),
-      ...noteData,
-      createdAt: now,
-      updatedAt: now,
-    };
-    setState((prev) => ({
-      ...prev,
-      notes: [newNote, ...prev.notes],
-    }));
-    addToast('info', 'Đã lưu ghi chú', `Ghi chú "${newNote.title || 'Không có tiêu đề'}" đã được ghi nhận.`);
-  };
+  const enterCase = () => setState((prev) => ({ ...prev, hasEnteredCase: true }));
 
-  const updateNote = (id: string, updates: Partial<Omit<CaseNote, 'id' | 'createdAt'>>) => {
-    const now = new Date().toISOString();
-    setState((prev) => ({
-      ...prev,
-      notes: prev.notes.map((n) => (n.id === id ? { ...n, ...updates, updatedAt: now } : n)),
-    }));
-  };
-
-  const deleteNote = (id: string) => {
-    setState((prev) => ({
-      ...prev,
-      notes: prev.notes.filter((n) => n.id !== id),
-    }));
-    addToast('warning', 'Đã xóa ghi chú', 'Bản ghi chú đã được xóa khỏi hồ sơ vụ án.');
-  };
-
-  const togglePinNote = (id: string) => {
-    setState((prev) => ({
-      ...prev,
-      notes: prev.notes.map((n) => (n.id === id ? { ...n, isPinned: !n.isPinned } : n)),
-    }));
-  };
-
-  // Puzzle Actions
   const unlockPhone = () => {
-    if (state.phoneUnlocked) return;
-    playAudio.accessGranted();
-
-    const newFact1: KnownFact = {
-      id: 'fact_phone_unlock',
-      phase: 1,
-      title: 'Mở khóa điện thoại Trương Nguyên Minh',
-      description: 'Đã giải mã thành công mã PIN 4 số. Khôi phục toàn bộ quyền truy cập album ảnh và tệp ghi chú bảo mật.',
-      source: 'Khai thác thiết bị số di động',
-      unlockedAt: new Date().toLocaleTimeString('vi-VN'),
-      isImportant: true,
-    };
-
-    const newFact2: KnownFact = {
-      id: 'fact_warehouse_hint',
-      phase: 2,
-      title: 'Quy tắc mã khóa Nhà kho B',
-      description: 'Ghi chú an ninh của Minh hé lộ: Mã khóa cửa kho B đồng bộ theo dấu thời gian (giờ:phút:giây) trích xuất từ dữ liệu hình ảnh giám sát.',
-      source: 'Ghi chú điện thoại của Minh',
-      unlockedAt: new Date().toLocaleTimeString('vi-VN'),
-      isImportant: true,
-    };
-
     setState((prev) => {
-      const alreadyHasFact1 = prev.knownFacts.some((f) => f.id === newFact1.id);
-      const alreadyHasFact2 = prev.knownFacts.some((f) => f.id === newFact2.id);
-      const factsToAdd = [];
-      if (!alreadyHasFact1) factsToAdd.push(newFact1);
-      if (!alreadyHasFact2) factsToAdd.push(newFact2);
-
-      const updatedEvidence = prev.evidenceList.map((ev) => {
-        if (ev.id === 'EV-02' || ev.id === 'EV-03' || ev.id === 'EV-04') {
-          return { ...ev, isUnlocked: true };
-        }
-        return ev;
-      });
-
+      const facts = prev.knownFacts.some((fact) => fact.id === 'fact_phone_unlock')
+        ? prev.knownFacts
+        : [
+            {
+              id: 'fact_phone_unlock',
+              phase: 1,
+              title: 'Điện thoại đã được mở khóa',
+              description: 'Dữ liệu hình ảnh và ghi chú trên thiết bị thu giữ đã sẵn sàng để kiểm tra.',
+              source: 'Khai thác thiết bị số',
+              unlockedAt: new Date().toISOString(),
+              isImportant: true,
+            },
+            ...prev.knownFacts,
+          ];
       return {
         ...prev,
         phoneUnlocked: true,
         phase1Complete: true,
         currentPhase: Math.max(prev.currentPhase, 2),
-        knownFacts: [...factsToAdd, ...prev.knownFacts],
-        evidenceList: updatedEvidence,
+        knownFacts: facts,
+        evidenceList: prev.evidenceList.map((item) =>
+          ['EV-02', 'EV-03', 'EV-04'].includes(item.id) ? { ...item, isUnlocked: true } : item,
+        ),
       };
     });
-
-    addToast('success', 'PHASE 1 HOÀN TẤT', 'Mở khóa điện thoại thành công! Dữ liệu mới đã được thêm vào Bảng điều tra.');
+    notify('success', 'DEVICE ACCESS GRANTED', 'Dữ liệu điện thoại và Phase 2 đã được mở.');
   };
 
-  const lockPhone = () => {
-    setState((prev) => ({ ...prev, phoneUnlocked: false, phase1Complete: false }));
-    addToast('warning', 'Khóa điện thoại', 'Thiết bị điện thoại đã được khóa lại.');
-  };
+  const lockPhone = () => setState((prev) => ({
+    ...prev,
+    currentPhase: 1,
+    phoneUnlocked: false,
+    warehouseBUnlocked: false,
+    b19Unlocked: false,
+    phase1Complete: false,
+    phase2Complete: false,
+    phase3Complete: false,
+    knownFacts: prev.knownFacts.filter((fact) => !['fact_phone_unlock', 'fact_warehouse_unlock', 'fact_b19_log'].includes(fact.id)),
+    evidenceList: prev.evidenceList.map((item) => ['EV-02', 'EV-03', 'EV-04', 'EV-05', 'TL-02'].includes(item.id) ? { ...item, isUnlocked: false } : item),
+  }));
 
   const unlockWarehouseB = () => {
-    if (state.warehouseBUnlocked) return;
-    playAudio.heavyDoorUnlock();
-
-    const newFact: KnownFact = {
-      id: 'fact_warehouse_unlock',
-      phase: 2,
-      title: 'Thâm nhập thành công Nhà kho B',
-      description: 'Chốt điện từ cửa kho B đã được giải mã bằng dấu thời gian camera giám sát (16:03:49). Đã tiếp cận khu vực lưu trữ bên trong.',
-      source: 'Trạm kiểm soát an ninh Kho B',
-      unlockedAt: new Date().toLocaleTimeString('vi-VN'),
-      isImportant: true,
-    };
-
     setState((prev) => {
-      const alreadyHas = prev.knownFacts.some((f) => f.id === newFact.id);
-      const updatedEvidence = prev.evidenceList.map((ev) => {
-        if (ev.id === 'EV-05') {
-          return { ...ev, isUnlocked: true };
-        }
-        return ev;
-      });
-
+      const facts = prev.knownFacts.some((fact) => fact.id === 'fact_warehouse_unlock')
+        ? prev.knownFacts
+        : [
+            {
+              id: 'fact_warehouse_unlock',
+              phase: 2,
+              title: 'Đã tiếp cận Nhà kho B',
+              description: 'Khóa điện tử của cửa kho đã được vô hiệu hóa. Hành lang dẫn tới khu lưu trữ B-19 đã xuất hiện.',
+              source: 'Trạm kiểm soát Kho B',
+              unlockedAt: new Date().toISOString(),
+              isImportant: true,
+            },
+            ...prev.knownFacts,
+          ];
       return {
         ...prev,
         warehouseBUnlocked: true,
         phase2Complete: true,
         currentPhase: Math.max(prev.currentPhase, 3),
-        knownFacts: alreadyHas ? prev.knownFacts : [newFact, ...prev.knownFacts],
-        evidenceList: updatedEvidence,
+        knownFacts: facts,
+        evidenceList: prev.evidenceList.map((item) => item.id === 'EV-05' ? { ...item, isUnlocked: true } : item),
       };
     });
-
-    addToast('success', 'PHASE 2 HOÀN TẤT', 'Cửa Nhà kho B đã mở khóa! Đã tìm thấy tài liệu lưu trữ nội bộ.');
+    notify('success', 'WAREHOUSE ACCESS GRANTED', 'Archive B-19 hiện đã khả dụng.');
   };
 
-  const lockWarehouseB = () => {
-    setState((prev) => ({ ...prev, warehouseBUnlocked: false, phase2Complete: false }));
-    addToast('warning', 'Khóa cửa kho B', 'Cửa kho B đã được khóa lại.');
+  const lockWarehouseB = () => setState((prev) => ({
+    ...prev,
+    currentPhase: prev.phoneUnlocked ? 2 : 1,
+    warehouseBUnlocked: false,
+    b19Unlocked: false,
+    phase2Complete: false,
+    phase3Complete: false,
+    knownFacts: prev.knownFacts.filter((fact) => !['fact_warehouse_unlock', 'fact_b19_log'].includes(fact.id)),
+    evidenceList: prev.evidenceList.map((item) => ['EV-05', 'TL-02'].includes(item.id) ? { ...item, isUnlocked: false } : item),
+  }));
+
+  const unlockB19 = () => {
+    setState((prev) => {
+      const facts = prev.knownFacts.some((fact) => fact.id === 'fact_b19_log')
+        ? prev.knownFacts
+        : [
+            {
+              id: 'fact_b19_log',
+              phase: 3,
+              title: 'TL-02 — Nhật ký truy cập B-19',
+              description: 'Terminal B-19 lưu năm lượt truy cập từ 19:36 đến 20:04. Dữ liệu chỉ ghi nhận thời gian và mã thẻ.',
+              source: 'Phòng lưu trữ B-19',
+              unlockedAt: new Date().toISOString(),
+              isImportant: true,
+            },
+            ...prev.knownFacts,
+          ];
+      return {
+        ...prev,
+        b19Unlocked: true,
+        phase3Complete: true,
+        currentPhase: Math.max(prev.currentPhase, 4),
+        knownFacts: facts,
+        evidenceList: prev.evidenceList.map((item) => item.id === 'TL-02' ? { ...item, isUnlocked: true } : item),
+      };
+    });
+    notify('success', 'B-19 ACCESS GRANTED', 'TL-02 đã được thêm vào Evidence Log.');
   };
 
-  const updatePuzzlesConfig = (config: Partial<PuzzlesConfig>) => {
-    setState((prev) => ({
-      ...prev,
-      puzzles: { ...prev.puzzles, ...config },
-    }));
-    addToast('info', 'Cập nhật cấu hình', 'Đã lưu cấu hình mật mã puzzle mới.');
+  const resetPhase3 = () => setState((prev) => ({
+    ...prev,
+    b19Unlocked: false,
+    phase3Complete: false,
+    currentPhase: prev.warehouseBUnlocked ? 3 : prev.phoneUnlocked ? 2 : 1,
+    knownFacts: prev.knownFacts.filter((fact) => fact.id !== 'fact_b19_log'),
+    evidenceList: prev.evidenceList.map((item) => item.id === 'TL-02' ? { ...item, isUnlocked: false } : item),
+  }));
+
+  const setAssignments = (next: Assignment[]) => {
+    const usedPlayers = new Set<string>();
+    const usedRoles = new Set<string>();
+    const safe = next.filter((item) => {
+      if (!item.playerId || !item.roleId || usedPlayers.has(item.playerId) || usedRoles.has(item.roleId)) return false;
+      usedPlayers.add(item.playerId);
+      usedRoles.add(item.roleId);
+      return true;
+    });
+    setAssignmentState(safe);
+    notify('success', 'Đã lưu phân vai', `${safe.length}/15 hồ sơ đã được gán.`);
   };
 
-  const toggleHints = () => {
-    setState((prev) => ({ ...prev, hintsEnabled: !prev.hintsEnabled }));
-    addToast('info', 'Trợ giúp Puzzle', `Đã ${!state.hintsEnabled ? 'BẬT' : 'TẮT'} hiển thị gợi ý.`);
-  };
+  const value = useMemo<GameContextValue>(() => ({
+    ...state,
+    activeModule,
+    setActiveModule,
+    isAdminOpen,
+    setIsAdminOpen,
+    toasts,
+    dismissToast,
+    assignments,
+    setAssignments,
+    enterCase,
+    unlockPhone,
+    lockPhone,
+    unlockWarehouseB,
+    lockWarehouseB,
+    unlockB19,
+    lockB19: resetPhase3,
+    resetPhase3,
+    setPhase: (phase) => setState((prev) => ({ ...prev, currentPhase: phase })),
+    setHintsEnabled: (enabled) => setState((prev) => ({ ...prev, hintsEnabled: enabled })),
+    setSoundEnabled: (enabled) => setState((prev) => ({ ...prev, soundEnabled: enabled })),
+    updatePuzzlesConfig: (config) => setState((prev) => ({ ...prev, puzzles: { ...prev.puzzles, ...config } })),
+    resetGame: () => {
+      setState({ ...initialState, knownFacts: [...initialState.knownFacts], evidenceList: [...initialState.evidenceList] });
+      setActiveModule('phone');
+      notify('info', 'Đã reset game', 'Toàn bộ tiến trình đã trở về mặc định.');
+    },
+  }), [state, activeModule, isAdminOpen, toasts, dismissToast, assignments, notify]);
 
-  const setPhase = (phase: number) => {
-    setState((prev) => ({ ...prev, currentPhase: phase }));
-  };
+  return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
+}
 
-  const resetGame = () => {
-    localStorage.removeItem(STORAGE_KEY);
-    setState({ ...defaultState });
-    setActiveModule('dashboard');
-    addToast('alert', 'RESET HỆ THỐNG', 'Toàn bộ tiến trình điều tra và ghi chú đã được khôi phục về mặc định.');
-  };
-
-  return (
-    <GameStateContext.Provider
-      value={{
-        ...state,
-        activeModule,
-        setActiveModule,
-        toasts,
-        dismissToast,
-        enterCase,
-        addNote,
-        updateNote,
-        deleteNote,
-        togglePinNote,
-        unlockPhone,
-        lockPhone,
-        unlockWarehouseB,
-        lockWarehouseB,
-        updatePuzzlesConfig,
-        toggleHints,
-        setPhase,
-        resetGame,
-        isAdminOpen,
-        setIsAdminOpen,
-      }}
-    >
-      {children}
-    </GameStateContext.Provider>
-  );
-};
-
-export const useGameState = (): GameStateContextType => {
-  const context = useContext(GameStateContext);
-  if (!context) {
-    throw new Error('useGameState must be used within a GameStateProvider');
-  }
+export function useGameState() {
+  const context = useContext(GameContext);
+  if (!context) throw new Error('useGameState must be used within GameStateProvider');
   return context;
-};
+}

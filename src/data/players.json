@@ -1,0 +1,17 @@
+[
+  { "id": "player-01", "displayName": "Người chơi 01", "avatarPath": "/avatars/player-01.jpg" },
+  { "id": "player-02", "displayName": "Người chơi 02", "avatarPath": "/avatars/player-02.jpg" },
+  { "id": "player-03", "displayName": "Người chơi 03", "avatarPath": "/avatars/player-03.jpg" },
+  { "id": "player-04", "displayName": "Người chơi 04", "avatarPath": "/avatars/player-04.jpg" },
+  { "id": "player-05", "displayName": "Người chơi 05", "avatarPath": "/avatars/player-05.jpg" },
+  { "id": "player-06", "displayName": "Người chơi 06", "avatarPath": "/avatars/player-06.jpg" },
+  { "id": "player-07", "displayName": "Người chơi 07", "avatarPath": "/avatars/player-07.jpg" },
+  { "id": "player-08", "displayName": "Người chơi 08", "avatarPath": "/avatars/player-08.jpg" },
+  { "id": "player-09", "displayName": "Người chơi 09", "avatarPath": "/avatars/player-09.jpg" },
+  { "id": "player-10", "displayName": "Người chơi 10", "avatarPath": "/avatars/player-10.jpg" },
+  { "id": "player-11", "displayName": "Người chơi 11", "avatarPath": "/avatars/player-11.jpg" },
+  { "id": "player-12", "displayName": "Người chơi 12", "avatarPath": "/avatars/player-12.jpg" },
+  { "id": "player-13", "displayName": "Người chơi 13", "avatarPath": "/avatars/player-13.jpg" },
+  { "id": "player-14", "displayName": "Người chơi 14", "avatarPath": "/avatars/player-14.jpg" },
+  { "id": "player-15", "displayName": "Người chơi 15", "avatarPath": "/avatars/player-15.jpg" }
+]

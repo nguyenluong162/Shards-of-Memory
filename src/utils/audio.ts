@@ -1,6 +1,7 @@
 // Synthesized audio effects using Web Audio API for immersive feedback without external assets
 
 let audioCtx: AudioContext | null = null;
+let ambientNodes: { oscillators: OscillatorNode[]; gain: GainNode } | null = null;
 
 function getAudioContext(): AudioContext | null {
   if (typeof window === 'undefined') return null;
@@ -98,5 +99,66 @@ export const playAudio = {
     } catch {
       // Audio policy fallback
     }
-  }
+  },
+
+  terminalBoot: () => {
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      [180, 260, 410].forEach((freq, index) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = ctx.currentTime + index * 0.1;
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(freq, start);
+        gain.gain.setValueAtTime(0.035, start);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.09);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + 0.1);
+      });
+    } catch {
+      // Audio policy fallback
+    }
+  },
+
+  startAmbient: () => {
+    try {
+      if (ambientNodes) return;
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+      gain.gain.setValueAtTime(0.008, ctx.currentTime);
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(160, ctx.currentTime);
+      const oscillators = [43, 57].map((frequency, index) => {
+        const osc = ctx.createOscillator();
+        osc.type = index ? 'triangle' : 'sine';
+        osc.frequency.setValueAtTime(frequency, ctx.currentTime);
+        osc.connect(filter);
+        osc.start();
+        return osc;
+      });
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      ambientNodes = { oscillators, gain };
+    } catch {
+      ambientNodes = null;
+    }
+  },
+
+  stopAmbient: () => {
+    if (!ambientNodes) return;
+    try {
+      const ctx = getAudioContext();
+      const { oscillators, gain } = ambientNodes;
+      if (ctx) gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+      oscillators.forEach((oscillator) => oscillator.stop((ctx?.currentTime ?? 0) + 0.14));
+    } catch {
+      // Node may already be stopped
+    }
+    ambientNodes = null;
+  },
 };

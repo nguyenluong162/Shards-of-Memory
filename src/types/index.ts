@@ -1,21 +1,4 @@
-export type CaseNoteCategory = 
-  | 'Suspect' 
-  | 'Timeline' 
-  | 'Evidence' 
-  | 'Puzzle' 
-  | 'Vehicle' 
-  | 'Theory' 
-  | 'General';
-
-export interface CaseNote {
-  id: string;
-  title: string;
-  content: string;
-  category: CaseNoteCategory;
-  isPinned: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
+export type ModuleId = 'phone' | 'warehouse' | 'b19' | 'personnel';
 
 export interface KnownFact {
   id: string;
@@ -43,7 +26,6 @@ export interface PhonePhoto {
   title: string;
   filename: string;
   url: string;
-  thumbnailUrl?: string;
   date: string;
   device: string;
   album: string;
@@ -64,19 +46,46 @@ export interface PhoneNote {
 export interface PuzzlesConfig {
   phase1PhonePin: string;
   phase2WarehouseCode: string;
-  phase2AcceptedCodes?: string[];
+  phase2AcceptedCodes: string[];
   phase1Hint: string;
   phase2Hint: string;
+  phase3B19Code: string;
+}
+
+export interface Player {
+  id: string;
+  displayName: string;
+  avatarPath: string;
+}
+
+export interface Role {
+  id: string;
+  title: string;
+  publicDescription: string;
+}
+
+export interface Assignment {
+  playerId: string;
+  roleId: string;
+}
+
+export interface ToastMessage {
+  id: string;
+  tone: 'success' | 'error' | 'info';
+  title: string;
+  detail: string;
 }
 
 export interface GameState {
   currentPhase: number;
   phoneUnlocked: boolean;
   warehouseBUnlocked: boolean;
+  b19Unlocked: boolean;
   phase1Complete: boolean;
   phase2Complete: boolean;
+  phase3Complete: boolean;
   hintsEnabled: boolean;
-  notes: CaseNote[];
+  soundEnabled: boolean;
   knownFacts: KnownFact[];
   evidenceList: EvidenceItem[];
   puzzles: PuzzlesConfig;

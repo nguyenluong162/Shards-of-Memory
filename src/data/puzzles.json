@@ -2,6 +2,7 @@
   "phase1PhonePin": "2010",
   "phase2WarehouseCode": "160349",
   "phase2AcceptedCodes": ["160349", "1603", "12031603", "16:03:49"],
-  "phase1Hint": "Mã PIN gồm 4 chữ số, liên quan đến dấu mốc thời gian kỷ niệm trọng tâm của vụ án (20/10).",
-  "phase2Hint": "Mã bảo mật cửa kho B đồng bộ theo dấu thời gian (timestamp: giờ phút giây) ghi trên hình ảnh giám sát trích xuất."
+  "phase1Hint": "Mã PIN gồm 4 chữ số, liên quan đến dấu mốc thời gian trọng tâm của vụ án.",
+  "phase2Hint": "Mã cửa kho đồng bộ theo dấu thời gian trên dữ liệu hình ảnh giám sát.",
+  "phase3B19Code": "2635"
 }

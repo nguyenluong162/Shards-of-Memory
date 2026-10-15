@@ -1,0 +1,17 @@
+[
+  { "id": "A2-01", "title": "Trưởng bộ phận truyền thông", "publicDescription": "Phụ trách truyền thông, thông cáo và hình ảnh công khai của quỹ." },
+  { "id": "A2-02", "title": "Kế toán", "publicDescription": "Theo dõi chứng từ, sổ sách và các khoản thu chi của tổ chức." },
+  { "id": "A2-03", "title": "Trưởng ban sự kiện", "publicDescription": "Điều phối nhân sự, lịch trình và vận hành tại các sự kiện." },
+  { "id": "A2-04", "title": "Kỹ thuật viên camera", "publicDescription": "Vận hành, bảo trì và trích xuất dữ liệu từ hệ thống giám sát." },
+  { "id": "A2-05", "title": "Cựu vệ sĩ của nạn nhân", "publicDescription": "Từng chịu trách nhiệm bảo vệ an toàn cá nhân cho nạn nhân." },
+  { "id": "A2-06", "title": "Cháu gái nạn nhân", "publicDescription": "Người thân trong gia đình, có mối liên hệ trực tiếp với nạn nhân." },
+  { "id": "A2-07", "title": "Trợ lý riêng của nạn nhân", "publicDescription": "Quản lý lịch làm việc, hồ sơ và các cuộc hẹn của nạn nhân." },
+  { "id": "A2-08", "title": "Nhân viên IT của quỹ", "publicDescription": "Phụ trách thiết bị, tài khoản và hạ tầng công nghệ nội bộ." },
+  { "id": "A2-09", "title": "Kiểm toán viên độc lập", "publicDescription": "Rà soát hoạt động tài chính của quỹ với tư cách bên độc lập." },
+  { "id": "A2-10", "title": "Bảo vệ nhà kho", "publicDescription": "Trực tiếp kiểm soát người và hàng hóa ra vào khu vực kho." },
+  { "id": "A2-11", "title": "Tài xế vận chuyển", "publicDescription": "Đảm nhiệm việc vận chuyển vật tư và tài liệu giữa các địa điểm." },
+  { "id": "A2-12", "title": "Phóng viên tự do", "publicDescription": "Theo dõi các hoạt động của quỹ dưới góc nhìn báo chí độc lập." },
+  { "id": "A2-13", "title": "Nhân viên hậu cần sự kiện", "publicDescription": "Chuẩn bị thiết bị, vật tư và hỗ trợ vận hành tại hiện trường." },
+  { "id": "A2-14", "title": "Chánh thanh tra kiêm cố vấn pháp lý", "publicDescription": "Phụ trách thanh tra nội bộ và tư vấn các vấn đề pháp lý." },
+  { "id": "A2-15", "title": "Quan chức phụ trách ngân sách", "publicDescription": "Giám sát phân bổ ngân sách và các thủ tục phê duyệt liên quan." }
+]
