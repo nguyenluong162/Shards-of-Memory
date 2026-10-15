@@ -101,6 +101,35 @@ export const playAudio = {
     }
   },
 
+  slowFootsteps: () => {
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const stepTimes = [0, 0.82, 1.68, 2.58, 3.5, 4.45, 5.42];
+      stepTimes.forEach((delay, index) => {
+        const start = ctx.currentTime + delay;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(index % 2 ? 78 : 68, start);
+        osc.frequency.exponentialRampToValueAtTime(38, start + 0.16);
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(190, start);
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.18, start + 0.012);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.24);
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + 0.26);
+      });
+    } catch {
+      // Audio policy fallback
+    }
+  },
+
   terminalBoot: () => {
     try {
       const ctx = getAudioContext();

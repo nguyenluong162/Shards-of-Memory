@@ -35,13 +35,13 @@ function ChessTerminal() {
                 role="gridcell"
                 aria-label={`Ô ${square}`}
                 aria-pressed={selected.includes(square)}
-                className={`${(rank + fileIndex) % 2 ? 'light' : 'dark'} ${selected.includes(square) ? 'selected' : ''}`}
+                className={`${(rank + fileIndex) % 2 === 0 ? 'light' : 'dark'} ${selected.includes(square) ? 'selected' : ''}`}
                 key={square}
                 onClick={() => toggle(square)}
               >
                 {file === 'a' && <i className="rank-label">{rank}</i>}
                 {rank === 1 && <i className="file-label">{file}</i>}
-                {piece && <b>{pieceGlyph[piece] ?? '?'}</b>}
+                {piece && <b className={piece.startsWith('white-') ? 'white-piece' : 'black-piece'}>{pieceGlyph[piece] ?? '?'}</b>}
                 {selected.includes(square) && <span><Check/></span>}
               </button>
             );

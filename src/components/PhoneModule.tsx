@@ -124,13 +124,6 @@ export function PhoneModule() {
     <>
       <PageHeading eyebrow="DIGITAL FORENSICS / EVIDENCE EV-01" title="Seized Phone" detail="Thiết bị cá nhân của Trương Nguyên Minh · forensic copy mounted." />
       <section className="device-workbench">
-        <aside className="device-brief">
-          <p className="eyebrow">EVIDENCE LABEL</p>
-          <h3>EV-01 / MOBILE DEVICE</h3>
-          <dl><div><dt>CUSTODIAN</dt><dd>Trương Nguyên Minh</dd></div><div><dt>STATUS</dt><dd className={phoneUnlocked ? 'ok' : ''}>{phoneUnlocked ? 'DATA ACCESSIBLE' : 'PASSCODE LOCKED'}</dd></div><div><dt>INTEGRITY</dt><dd>FORENSIC COPY · VERIFIED</dd></div><div><dt>NETWORK</dt><dd>ISOLATED</dd></div></dl>
-          <div className="brief-note"><Lock size={15}/><p>Không kết nối thiết bị với mạng ngoài trong khi kiểm tra vật chứng.</p></div>
-        </aside>
-
         <div className="phone-wrap">
           <div className={`phone-device ${status === 'error' ? 'shake' : ''} ${status === 'opening' ? 'unlocking' : ''}`}>
             <div className="phone-speaker" />
@@ -150,17 +143,6 @@ export function PhoneModule() {
             </div>
           </div>
         </div>
-
-        <aside className="extraction-log">
-          <div className="panel-title"><span>EXTRACTION LOG</span><small>LIVE</small></div>
-          {[
-            ['01','Device image mounted','VERIFIED'],
-            ['02','File system indexed',phoneUnlocked ? 'COMPLETE' : 'WAITING'],
-            ['03','Photo library',phoneUnlocked ? 'AVAILABLE' : 'ENCRYPTED'],
-            ['04','Local notes',phoneUnlocked ? 'AVAILABLE' : 'ENCRYPTED'],
-          ].map(([id,label,state]) => <div className="log-row" key={id}><span>{id}</span><p>{label}</p><small className={state !== 'WAITING' && state !== 'ENCRYPTED' ? 'ok' : ''}>{state}</small></div>)}
-          <div className="log-help"><small>INPUT</small><p>Keypad, bàn phím số và phím Enter đều được hỗ trợ.</p></div>
-        </aside>
       </section>
     </>
   );

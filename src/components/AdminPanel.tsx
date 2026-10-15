@@ -4,6 +4,7 @@ import {
   Download,
   KeyRound,
   Lock,
+  LogOut,
   RotateCcw,
   Save,
   Settings2,
@@ -196,7 +197,12 @@ export function AdminPanel() {
                   <div className="admin-section-title"><p><small>BACKUP & RESET</small><strong>Local session data tools</strong></p></div>
                   <div className="data-actions"><button onClick={exportAssignments}><Download/><span><strong>Export assignments</strong><small>Tải file JSON phân vai về máy.</small></span></button><button onClick={() => fileRef.current?.click()}><Upload/><span><strong>Import assignments</strong><small>Kiểm tra ID và role trùng trước khi lưu.</small></span></button><input ref={fileRef} hidden type="file" accept=".json,application/json" onChange={(event) => importAssignments(event.target.files?.[0])}/></div>
                   {dataMessage && <p className="admin-message">{dataMessage}</p>}
-                  <div className="danger-zone"><small>DANGER ZONE</small><div><span><strong>Reset riêng Phase 3</strong><p>Khóa B-19 và gỡ TL-02, không ảnh hưởng Phase 1–2.</p></span><button onClick={() => window.confirm('Reset riêng Phase 3?') && game.resetPhase3()}>RESET PHASE 3</button></div><div><span><strong>Reset toàn bộ game</strong><p>Xóa toàn bộ tiến trình. Phân vai được giữ riêng.</p></span><button onClick={() => window.confirm('Xóa toàn bộ tiến trình?') && game.resetGame()}>RESET GAME</button></div></div>
+                  <div className="session-zone">
+                    <small>SESSION CONTROL</small>
+                    <div><span><strong>Quay về opening</strong><p>Trở lại poster mở đầu và giữ nguyên toàn bộ tiến trình.</p></span><button onClick={game.returnToOpening}><LogOut/>BACK TO OPENING</button></div>
+                    <div className="reset-row"><span><strong>Reset toàn bộ game</strong><p>Xóa toàn bộ tiến trình rồi quay thẳng về opening. Phân vai được giữ riêng.</p></span><button onClick={() => window.confirm('Xóa toàn bộ tiến trình và quay về opening?') && game.resetGame()}><RotateCcw/>RESET GAME</button></div>
+                  </div>
+                  <div className="danger-zone"><small>PHASE RESET</small><div><span><strong>Reset riêng Phase 3</strong><p>Khóa B-19 và gỡ TL-02, không ảnh hưởng Phase 1–2.</p></span><button onClick={() => window.confirm('Reset riêng Phase 3?') && game.resetPhase3()}>RESET PHASE 3</button></div></div>
                 </div>
               )}
             </main>

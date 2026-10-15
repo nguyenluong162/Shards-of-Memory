@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import type { CSSProperties } from 'react';
 import {
   Archive,
   ChevronRight,
@@ -6,7 +7,6 @@ import {
   Fingerprint,
   LockKeyhole,
   Settings2,
-  ShieldCheck,
   Smartphone,
   Volume2,
   VolumeX,
@@ -28,22 +28,44 @@ const navModules = [
   { id: 'personnel' as const, label: 'Personnel Database', icon: Database },
 ];
 
+const posterUrl = `${import.meta.env.BASE_URL}evidence/poster/Poster.png`;
+
 function Landing() {
   const { enterCase } = useGameState();
+  const [isExiting, setIsExiting] = useState(false);
+
+  useEffect(() => {
+    if (!isExiting) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const timer = window.setTimeout(enterCase, reducedMotion ? 40 : 950);
+    return () => window.clearTimeout(timer);
+  }, [enterCase, isExiting]);
+
+  useEffect(() => {
+    const startWithSpace = (event: KeyboardEvent) => {
+      if (event.code !== 'Space' || isExiting) return;
+      event.preventDefault();
+      setIsExiting(true);
+    };
+    window.addEventListener('keydown', startWithSpace);
+    return () => window.removeEventListener('keydown', startWithSpace);
+  }, [isExiting]);
+
   return (
-    <main className="entry-screen">
-      <div className="entry-grid" aria-hidden="true" />
-      <section className="entry-card">
-        <div className="entry-classification">RESTRICTED // INVESTIGATION USE ONLY</div>
-        <Fingerprint className="entry-mark" strokeWidth={1.2} />
-        <p className="eyebrow">DIGITAL CASEWORK ENVIRONMENT</p>
-        <h1>CASE <span>20:10</span></h1>
-        <p className="entry-subtitle">SHARDS OF MEMORY</p>
-        <div className="entry-rule" />
-        <p className="entry-copy">Hệ thống tổng hợp vật chứng và điều phối điều tra. Mọi hoạt động truy cập được lưu trên thiết bị này.</p>
-        <button className="primary-action" onClick={enterCase}><ShieldCheck size={18} />ENTER CASE FILE<ChevronRight size={18} /></button>
-        <p className="microcopy">SESSION 01 · LOCAL EVIDENCE NODE</p>
-      </section>
+    <main className={`entry-screen ${isExiting ? 'is-exiting' : ''}`}>
+      <img className="entry-poster" src={posterUrl} alt="Shards of Memory — Investigation Board" />
+      <div className="entry-atmosphere" aria-hidden="true" />
+      <div className="entry-scanline" aria-hidden="true" />
+      <div className="entry-transition-shards" aria-hidden="true"><i/><i/><i/><i/></div>
+      <header className="entry-hud">
+        <div className="entry-classification"><Fingerprint strokeWidth={1.4} />CONFIDENTIAL // CASE 20:10</div>
+        <div className="entry-system"><span /> MEMORY ARCHIVE ONLINE</div>
+      </header>
+      <div className="entry-start">
+        <button onClick={() => setIsExiting(true)} disabled={isExiting} aria-label="Nhấn Space để bắt đầu điều tra">
+          <span>SPACE</span><strong>NHẤN ĐỂ BẮT ĐẦU ĐIỀU TRA</strong><ChevronRight />
+        </button>
+      </div>
     </main>
   );
 }
@@ -91,12 +113,16 @@ function AppShell() {
   if (!game.hasEnteredCase) return <Landing />;
 
   return (
-    <div className="app-shell">
+    <div
+      className={`app-shell phase-${game.currentPhase}`}
+      style={{ '--case-poster': `url("${posterUrl}")` } as CSSProperties}
+    >
       <header className="topbar">
         <button className="brand-lockup" onClick={() => game.setActiveModule('phone')}>
           <span className="brand-seal">20:10</span>
           <span><strong>SHARDS OF MEMORY</strong><small>INVESTIGATION CONTROL</small></span>
         </button>
+        <div className="topbar-classification"><Fingerprint /> RESTRICTED ARCHIVE</div>
         <div className="case-status"><span /> CASE OPEN · PHASE {String(game.currentPhase).padStart(2, '0')}</div>
         <button className="sound-button" title={game.soundEnabled ? 'Tắt âm thanh' : 'Bật âm thanh'} onClick={() => game.setSoundEnabled(!game.soundEnabled)}>{game.soundEnabled ? <Volume2/> : <VolumeX/>}</button>
       </header>
