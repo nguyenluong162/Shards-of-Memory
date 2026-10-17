@@ -186,7 +186,7 @@ export function AdminPanel() {
                   <div className="assignment-list">{players.map((player, index) => {
                     const current = draftAssignments.find((item) => item.playerId === player.id)?.roleId ?? '';
                     const used = new Set(draftAssignments.filter((item) => item.playerId !== player.id).map((item) => item.roleId));
-                    return <label key={player.id}><span><b>{String(index + 1).padStart(2, '0')}</b><Avatar src={assetUrl(player.avatarPath)} name={player.displayName}/><strong>{player.displayName}</strong></span><select value={current} onChange={(event) => assign(player.id, event.target.value)}><option value="">— Chưa phân vai —</option>{roles.map((role) => <option key={role.id} value={role.id} disabled={used.has(role.id)}>{role.id} — {role.title}{used.has(role.id) ? ' · đã gán' : ''}</option>)}</select></label>;
+                    return <label key={player.id}><span><b>{String(index + 1).padStart(2, '0')}</b><Avatar src={assetUrl(player.avatarPath)} name={player.displayName}/><strong>{player.displayName}</strong></span><select value={current} onChange={(event) => assign(player.id, event.target.value)}><option value="">— Chưa phân vai —</option>{roles.map((role) => <option key={role.id} value={role.id} disabled={used.has(role.id)}>{role.title}{used.has(role.id) ? ' · đã gán' : ''}</option>)}</select></label>;
                   })}</div>
                   <div className="admin-actions"><button className="ghost-action danger" onClick={() => window.confirm('Xóa toàn bộ phân vai?') && setDraftAssignments([])}><RotateCcw/>CLEAR DRAFT</button><button className="solid-action" onClick={() => game.setAssignments(draftAssignments)}><Save/>SAVE ASSIGNMENTS</button></div>
                 </div>
