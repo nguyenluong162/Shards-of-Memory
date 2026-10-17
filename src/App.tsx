@@ -8,8 +8,6 @@ import {
   LockKeyhole,
   Settings2,
   Smartphone,
-  Volume2,
-  VolumeX,
   Warehouse,
 } from 'lucide-react';
 import { GameStateProvider, useGameState } from './context/GameStateContext';
@@ -117,16 +115,6 @@ function AppShell() {
       className={`app-shell phase-${game.currentPhase}`}
       style={{ '--case-poster': `url("${posterUrl}")` } as CSSProperties}
     >
-      <header className="topbar">
-        <button className="brand-lockup" onClick={() => game.setActiveModule('phone')}>
-          <span className="brand-seal">20:10</span>
-          <span><strong>SHARDS OF MEMORY</strong><small>INVESTIGATION CONTROL</small></span>
-        </button>
-        <div className="topbar-classification"><Fingerprint /> RESTRICTED ARCHIVE</div>
-        <div className="case-status"><span /> CASE OPEN · PHASE {String(game.currentPhase).padStart(2, '0')}</div>
-        <button className="sound-button" title={game.soundEnabled ? 'Tắt âm thanh' : 'Bật âm thanh'} onClick={() => game.setSoundEnabled(!game.soundEnabled)}>{game.soundEnabled ? <Volume2/> : <VolumeX/>}</button>
-      </header>
-
       <nav className="module-rail" aria-label="Case modules">
         <p className="rail-label">CASE MODULES</p>
         {navModules.map((module, index) => {

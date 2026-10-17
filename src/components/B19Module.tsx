@@ -154,14 +154,14 @@ export function B19Module() {
           <div className="b19-sign"><small>RESTRICTED ARCHIVE</small><strong>SECTOR B—19</strong><span>AUTHORIZED PERSONNEL ONLY</span></div>
           <div className="b19-wheel"><span/><i/><b/></div>
           <div className="b19-lock-state"><span className={status === 'opening' ? 'green' : ''}/><small>{status === 'opening' ? 'LOCK DISENGAGED' : 'SECURITY LOCK ENGAGED'}</small></div>
+          <section className={`b19-panel panel ${status === 'error' ? 'denied shake' : ''} ${status === 'opening' ? 'granted' : ''}`}>
+            <div className="terminal-head"><LockKeyhole/><div><small>ACCESS CONTROL</small><strong>B19-AC / REV.04</strong></div><span /></div>
+            <div className="b19-display"><small>{status === 'error' ? 'ACCESS DENIED' : status === 'opening' ? 'ACCESS GRANTED' : 'LOCKED'}</small><div>{Array.from({ length: 4 }, (_, index) => <span key={index}>{code[index] ? code[index] : '—'}</span>)}</div><p>{status === 'error' ? 'CLEARING INPUT BUFFER' : status === 'opening' ? 'OPENING ARCHIVE DOOR' : 'ENTER FOUR-DIGIT CODE'}</p></div>
+            <NumericKeypad value={code} onChange={setCode} length={4} onSubmit={submit} disabled={status !== 'idle'} />
+            <div className="terminal-foot"><span>PHYSICAL KEYS ENABLED</span><span>NO WEB HINTS</span></div>
+          </section>
           {status === 'opening' && <button className="skip-animation" onClick={complete}>SKIP ANIMATION</button>}
         </div>
-        <section className={`b19-panel panel ${status === 'error' ? 'denied shake' : ''} ${status === 'opening' ? 'granted' : ''}`}>
-          <div className="terminal-head"><LockKeyhole/><div><small>ACCESS CONTROL</small><strong>B19-AC / REV.04</strong></div><span /></div>
-          <div className="b19-display"><small>{status === 'error' ? 'ACCESS DENIED' : status === 'opening' ? 'ACCESS GRANTED' : 'LOCKED'}</small><div>{Array.from({ length: 4 }, (_, index) => <span key={index}>{code[index] ? code[index] : '—'}</span>)}</div><p>{status === 'error' ? 'CLEARING INPUT BUFFER' : status === 'opening' ? 'OPENING ARCHIVE DOOR' : 'ENTER FOUR-DIGIT CODE'}</p></div>
-          <NumericKeypad value={code} onChange={setCode} length={4} onSubmit={submit} disabled={status !== 'idle'} />
-          <div className="terminal-foot"><span>PHYSICAL KEYS ENABLED</span><span>NO WEB HINTS</span></div>
-        </section>
       </section>
     </>
   );

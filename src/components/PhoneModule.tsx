@@ -122,7 +122,7 @@ export function PhoneModule() {
 
   return (
     <>
-      <PageHeading eyebrow="DIGITAL FORENSICS / EVIDENCE EV-01" title="Seized Phone" detail="Thiết bị cá nhân của Trương Nguyên Minh · forensic copy mounted." />
+      <PageHeading eyebrow="DIGITAL FORENSICS / EVIDENCE EV-01" />
       <section className="device-workbench">
         <div className="phone-wrap">
           <div className={`phone-device ${status === 'error' ? 'shake' : ''} ${status === 'opening' ? 'unlocking' : ''}`}>

@@ -42,9 +42,10 @@
     "name": "Tài liệu lưu trữ bên trong Kho B",
     "type": "document",
     "phase": 2,
-    "description": "Các hồ sơ, mẫu vật và manh mối phục vụ giai đoạn điều tra tiếp theo được tìm thấy sau khi mở cánh cửa kho B.",
+    "description": "Danh sách người vào Kho B được thu hồi sau khi mở cánh cửa kho B, ghi lại năm lượt đăng ký qua cổng chính.",
     "locationFound": "Kệ lưu trữ A-04, Nhà kho B",
-    "isUnlocked": false
+    "isUnlocked": false,
+    "thumbnailUrl": "/evidence/phase2/DanhSachKhoB.png"
   },
   {
     "id": "TL-02",
