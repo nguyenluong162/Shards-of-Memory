@@ -2,16 +2,17 @@ import { useState } from 'react';
 import { FileText, X } from 'lucide-react';
 import { BackButton, PageHeading } from './ui';
 import { useGameState } from '../context/GameStateContext';
-import danhSachB19 from '../../doc/TaiLieuVuAn/DanhSachB19.png';
-import danhSachKhoB from '../../doc/TaiLieuVuAn/DanhSachKhoB.png';
-import nhatKyRoiKho from '../../doc/TaiLieuVuAn/NhatKyRoiKho.png';
-import nhatKyXe from '../../doc/TaiLieuVuAn/NhatKyXe.png';
+import nhatKyQuetTheB19 from '../../doc/case-2010-tron-bo/3-dao-cu/DC-01-nhat-ky-quet-the-B19.png';
+import nhatKySuDungXe from '../../doc/case-2010-tron-bo/3-dao-cu/DC-02-nhat-ky-su-dung-xe.png';
+import soCapTheKhoB from '../../doc/case-2010-tron-bo/3-dao-cu/DC-03-so-cap-the-kho-B.png';
+import bangDoiChieuGiaoDich from '../../doc/case-2010-tron-bo/3-dao-cu/DC-04-bang-doi-chieu-giao-dich.png';
+import dienThoaiOngMinh from '../../doc/case-2010-tron-bo/3-dao-cu/DC-05-dien-thoai-ong-Minh.png';
 
 const documents = [
-  { title: 'Danh sách Kho B', filename: 'DanhSachKhoB.png', image: danhSachKhoB },
-  { title: 'Danh sách B-19', filename: 'DanhSachB19.png', image: danhSachB19 },
-  { title: 'Nhật ký rời kho', filename: 'NhatKyRoiKho.png', image: nhatKyRoiKho },
-  { title: 'Nhật ký xe', filename: 'NhatKyXe.png', image: nhatKyXe },
+  { title: 'Nhật ký quẹt thẻ B-19', filename: 'DC-01-nhat-ky-quet-the-B19.png', image: nhatKyQuetTheB19 },
+  { title: 'Nhật ký sử dụng xe', filename: 'DC-02-nhat-ky-su-dung-xe.png', image: nhatKySuDungXe },
+  { title: 'Sổ cấp thẻ kho B', filename: 'DC-03-so-cap-the-kho-B.png', image: soCapTheKhoB },
+  { title: 'Bảng đối chiếu giao dịch', filename: 'DC-04-bang-doi-chieu-giao-dich.png', image: bangDoiChieuGiaoDich },
 ];
 
 export function CaseDocumentsModule() {
