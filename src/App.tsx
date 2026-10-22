@@ -4,6 +4,7 @@ import {
   Archive,
   ChevronRight,
   Database,
+  FileText,
   Fingerprint,
   LockKeyhole,
   Settings2,
@@ -18,12 +19,14 @@ import { PersonnelDatabase } from './components/PersonnelDatabase';
 import { PhoneModule } from './components/PhoneModule';
 import { LockedModule, ToastStack } from './components/ui';
 import { WarehouseModule } from './components/WarehouseModule';
+import { CaseDocumentsModule } from './components/CaseDocumentsModule';
 
 const navModules = [
   { id: 'phone' as const, label: 'Seized Phone', icon: Smartphone },
   { id: 'warehouse' as const, label: 'Warehouse B', icon: Warehouse },
   { id: 'b19' as const, label: 'Archive B-19', icon: Archive },
   { id: 'personnel' as const, label: 'Personnel Database', icon: Database },
+  { id: 'case-documents' as const, label: 'Case Documents', icon: FileText },
 ];
 
 const posterUrl = `${import.meta.env.BASE_URL}evidence/poster/Poster.png`;
@@ -86,7 +89,8 @@ function AppShell() {
     if (id === 'personnel') return 'AVAILABLE';
     if (id === 'phone') return game.phoneUnlocked ? 'UNLOCKED' : 'ACTIVE PUZZLE';
     if (id === 'warehouse') return game.warehouseBUnlocked ? 'UNLOCKED' : game.phoneUnlocked ? 'ACTIVE PUZZLE' : 'RESTRICTED';
-    return game.b19Unlocked ? 'UNLOCKED' : game.warehouseBUnlocked ? 'ACTIVE PUZZLE' : 'RESTRICTED';
+    if (id === 'b19') return game.b19Unlocked ? 'UNLOCKED' : game.warehouseBUnlocked ? 'ACTIVE PUZZLE' : 'RESTRICTED';
+    return game.b19Unlocked ? 'UNLOCKED' : 'RESTRICTED';
   };
 
   const renderModule = () => {
@@ -103,6 +107,10 @@ function AppShell() {
           : <LockedModule title="Archive B-19" detail="Khu vực này nằm phía trong Warehouse B và chưa thể tiếp cận." requirement="Hoàn tất Warehouse B ở Phase 02" onBack={() => game.setActiveModule('phone')} />;
       case 'personnel':
         return <PersonnelDatabase />;
+      case 'case-documents':
+        return game.b19Unlocked
+          ? <CaseDocumentsModule />
+          : <LockedModule title="Case Documents" detail="Tập tài liệu vụ án chỉ được mở sau khi hoàn tất kho lưu trữ B-19." requirement="Hoàn tất Archive B-19 ở Phase 03" onBack={() => game.setActiveModule('b19')} />;
       default:
         return <PhoneModule />;
     }

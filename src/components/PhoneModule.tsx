@@ -21,6 +21,7 @@ import { playAudio } from '../utils/audio';
 import { NumericKeypad, PageHeading } from './ui';
 
 type PhoneView = 'home' | 'photos' | 'notes' | 'phone' | 'messages';
+const messages = [{ sender: '0901 234 158', preview: '1 tin nhắn đã tự hủy', time: '19:58' }];
 const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
 
 function PhotoViewer({ photo, onClose }: { photo: PhonePhoto; onClose: () => void }) {
@@ -80,8 +81,11 @@ function PhoneContent({ view, setView }: { view: PhoneView; setView: (view: Phon
       {view === 'notes' && selectedNote && (
         <article className="phone-note-detail"><button onClick={() => setSelectedNote(null)}><ChevronLeft/>All Notes</button><small>{selectedNote.date}</small><h3>{selectedNote.title}</h3><p>{selectedNote.content}</p><div>{selectedNote.tags?.map((tag) => <span key={tag}>{tag}</span>)}</div></article>
       )}
-      {(view === 'phone' || view === 'messages') && (
-        <div className="phone-empty"><div>{view === 'phone' ? <Phone/> : <MessageCircle/>}</div><h3>{view === 'phone' ? 'No recent calls' : 'No messages'}</h3><p>Không có dữ liệu quan trọng được phục hồi trong ứng dụng này.</p></div>
+      {view === 'messages' && (
+        <div className="phone-note-list">{messages.map((message) => <div key={message.time}><strong>{message.sender}</strong><p>{message.preview}</p><small>{message.time}</small></div>)}</div>
+      )}
+      {view === 'phone' && (
+        <div className="phone-empty"><div><Phone/></div><h3>No recent calls</h3><p>Không có dữ liệu quan trọng được phục hồi trong ứng dụng này.</p></div>
       )}
       {selectedPhoto && <PhotoViewer photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} />}
     </div>

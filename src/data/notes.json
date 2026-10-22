@@ -1,5 +1,13 @@
 [
   {
+    "id": "pnote-00",
+    "title": "Hồ sơ Hoa Hồng",
+    "date": "19/10/2023 19:40",
+    "content": "Hồ sơ Hoa Hồng — 2 người ký duyệt. Công bố 20/10.",
+    "isClue": true,
+    "tags": ["Hồ sơ Hoa Hồng"]
+  },
+  {
     "id": "pnote-01",
     "title": "Quy trình kiểm tra hệ thống Nhà kho B",
     "date": "14/03/2023 21:15",

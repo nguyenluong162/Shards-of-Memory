@@ -105,6 +105,17 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .panel-title small { color:#6f787e;font:700 8px ui-monospace,monospace; }
 .inline-search { margin:14px;display:flex;align-items:center;gap:9px;padding:10px 12px;border:1px solid #30373e;background:#0c0f12;color:#687179; }
 .inline-search input { width:100%;border:0;outline:0;background:transparent;color:var(--paper);font-size:11px; }
+.case-documents-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px; }
+.case-document-card { min-width:0;padding:0;border:1px solid var(--line);background:rgba(16,20,24,.96);text-align:left;cursor:pointer; }
+.case-document-card:hover { border-color:#77828a; }
+.case-document-preview { display:block;height:300px;padding:14px;background:#0b0e11; }
+.case-document-preview img { width:100%;height:100%;object-fit:contain; }
+.case-document-meta { display:grid;grid-template-columns:20px 1fr;gap:3px 8px;padding:13px 15px;border-top:1px solid var(--line); }
+.case-document-meta svg { grid-row:span 2;color:var(--teal); }
+.case-document-meta strong { color:var(--paper);font-size:12px; }
+.case-document-meta small { color:#727c82;font:700 8px ui-monospace,monospace;letter-spacing:.08em; }
+.case-document-viewer { max-width:min(92vw,1100px);max-height:82vh;padding:12px;background:#0b0e11;border:1px solid var(--line); }
+.case-document-viewer img { display:block;max-width:100%;max-height:calc(82vh - 24px);object-fit:contain; }
 
 /* Shared controls and overlays */
 
@@ -209,7 +220,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .phone-search svg { width:14px; }
 .phone-search input { width:100%;border:0;outline:0;background:transparent;color:#252a2d;font-size:11px; }
 .phone-note-list { border-top:1px solid #d4d2cc; }
-.phone-note-list>button { width:100%;padding:13px 17px;border:0;border-bottom:1px solid #d9d7d1;background:#f4f3ef;color:#1b2023;text-align:left;cursor:pointer; }
+.phone-note-list>button,.phone-note-list>div { width:100%;padding:13px 17px;border:0;border-bottom:1px solid #d9d7d1;background:#f4f3ef;color:#1b2023;text-align:left;cursor:pointer; }
 .phone-note-list strong,.phone-note-list p,.phone-note-list small { display:block; }
 .phone-note-list strong { font-size:12px; }
 .phone-note-list p { margin:4px 0;color:#64696c;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }

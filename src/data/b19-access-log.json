@@ -1,7 +1,9 @@
 [
-  { "time": "19:36", "cardId": "A2-02", "registeredRole": "Kế toán" },
-  { "time": "19:42", "cardId": "A2-03", "registeredRole": "Trưởng ban sự kiện" },
-  { "time": "19:46", "cardId": "A2-04", "registeredRole": "Kỹ thuật viên camera" },
-  { "time": "19:50", "cardId": "A2-06", "registeredRole": "Cháu gái nạn nhân" },
-  { "time": "20:04", "cardId": "A2-05", "registeredRole": "Cựu vệ sĩ" }
+  { "time": "19:36", "cardId": "A2-04", "registeredRole": "Kế toán" },
+  { "time": "19:42", "cardId": "A2-15", "registeredRole": "Trưởng ban sự kiện" },
+  { "time": "19:46", "cardId": "A2-02", "registeredRole": "Kỹ thuật viên camera" },
+  { "time": "19:53", "cardId": "A2-15", "registeredRole": "Trưởng ban sự kiện" },
+  { "time": "19:59", "cardId": "A2-13", "registeredRole": "Người thân nạn nhân (cháu gái)" },
+  { "time": "20:03", "cardId": "Thẻ quản lý", "registeredRole": "Trương Nguyên Minh" },
+  { "time": "20:04", "cardId": "A2-08", "registeredRole": "Cựu vệ sĩ của nạn nhân" }
 ]

@@ -82,7 +82,7 @@ function ArchiveRoom() {
           <div className="cabinet bank-b"><span>B</span>{[1,2,3,4,5,6].map((item) => <i key={item}/>)}</div>
           <button className="evidence-hotspot" onClick={() => setShowLog(true)}><FileSearch/><span>OPEN RECOVERED RECORD</span><strong>TL-02</strong></button>
         </div>
-        <aside className="archive-summary panel"><p className="eyebrow">NEW EVIDENCE</p><h3>TL-02 — Nhật ký truy cập B-19</h3><p>Bản ghi chứa năm lượt truy cập theo thời gian và mã thẻ. Dữ liệu không xác nhận người thực sự đã sử dụng thẻ.</p><button className="solid-action wide" onClick={() => setShowLog(true)}>VIEW FULL RECORD</button><div className="chain-note"><small>CHAIN OF CUSTODY</small><strong>RECOVERED · INDEXED · VERIFIED</strong></div></aside>
+        <aside className="archive-summary panel"><p className="eyebrow">NEW EVIDENCE</p><h3>TL-02 — Nhật ký truy cập B-19</h3><p>Bản ghi chứa bảy lượt truy cập theo thời gian và mã thẻ. Dữ liệu không xác nhận người thực sự đã sử dụng thẻ.</p><button className="solid-action wide" onClick={() => setShowLog(true)}>VIEW FULL RECORD</button><div className="chain-note"><small>CHAIN OF CUSTODY</small><strong>RECOVERED · INDEXED · VERIFIED</strong></div></aside>
       </section>
       {showLog && <AccessLogModal onClose={() => setShowLog(false)} />}
     </>

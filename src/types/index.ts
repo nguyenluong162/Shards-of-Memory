@@ -1,4 +1,4 @@
-export type ModuleId = 'phone' | 'warehouse' | 'b19' | 'personnel';
+export type ModuleId = 'phone' | 'warehouse' | 'b19' | 'personnel' | 'case-documents';
 
 export interface KnownFact {
   id: string;
