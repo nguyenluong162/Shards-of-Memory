@@ -23,9 +23,11 @@ export interface EvidenceItem {
 
 export interface PhonePhoto {
   id: string;
+  mediaType?: 'photo' | 'video';
   title: string;
   filename: string;
   url: string;
+  duration?: string;
   date: string;
   device: string;
   album: string;

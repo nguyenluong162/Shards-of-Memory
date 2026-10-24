@@ -8,3 +8,7 @@ dist/
 # Video tài liệu mật (~700MB, vượt giới hạn GitHub)
 doc/TaiLieuMat/
 public/secret/
+
+# Video Last83 (~96MB) — không commit
+*.mp4
+*.mov

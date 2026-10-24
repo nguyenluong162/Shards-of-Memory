@@ -7,6 +7,7 @@ import {
   Lock,
   MessageCircle,
   Phone,
+  Play,
   Search,
   Signal,
   Wifi,
@@ -29,11 +30,15 @@ function PhotoViewer({ photo, onClose }: { photo: PhonePhoto; onClose: () => voi
   return (
     <div className="modal-backdrop photo-viewer" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
       <button className="viewer-close" onClick={onClose}><X /> CLOSE</button>
-      <div className="photo-stage"><img src={assetUrl(photo.url)} alt={photo.notes || photo.filename} style={{ transform: `scale(${zoom})` }} /></div>
+      <div className="photo-stage">
+        {photo.mediaType === 'video'
+          ? <video src={assetUrl(photo.url)} controls autoPlay playsInline />
+          : <img src={assetUrl(photo.url)} alt={photo.notes || photo.filename} style={{ transform: `scale(${zoom})` }} />}
+      </div>
       <aside className="photo-inspector">
         <p className="eyebrow">RECOVERED MEDIA</p><h3>{photo.filename}</h3>
-        <dl><div><dt>DATE</dt><dd>{photo.date}</dd></div><div><dt>DEVICE</dt><dd>{photo.device}</dd></div><div><dt>ALBUM</dt><dd>{photo.album}</dd></div><div><dt>RESOLUTION</dt><dd>{photo.resolution}</dd></div></dl>
-        <label><ZoomIn size={15}/> ZOOM <input type="range" min="1" max="3" step=".1" value={zoom} onChange={(event) => setZoom(Number(event.target.value))}/></label>
+        <dl><div><dt>DATE</dt><dd>{photo.date}</dd></div><div><dt>DEVICE</dt><dd>{photo.device}</dd></div><div><dt>ALBUM</dt><dd>{photo.album}</dd></div><div><dt>RESOLUTION</dt><dd>{photo.resolution}</dd></div>{photo.duration && <div><dt>DURATION</dt><dd>{photo.duration}</dd></div>}</dl>
+        {photo.mediaType !== 'video' && <label><ZoomIn size={15}/> ZOOM <input type="range" min="1" max="3" step=".1" value={zoom} onChange={(event) => setZoom(Number(event.target.value))}/></label>}
       </aside>
     </div>
   );
@@ -68,8 +73,8 @@ function PhoneContent({ view, setView }: { view: PhoneView; setView: (view: Phon
       <div className="phone-app-header"><button onClick={() => { setView('home'); setSelectedNote(null); }}><ChevronLeft/>Home</button><strong>{view === 'photos' ? 'Photos' : view === 'notes' ? 'Notes' : view === 'phone' ? 'Phone' : 'Messages'}</strong><span /></div>
       {view === 'photos' && (
         <>
-          <div className="phone-app-copy"><small>LIBRARY</small><h3>Recovered photos</h3><p>{photos.length} items · all media</p></div>
-          <div className="phone-gallery">{photos.map((photo) => <button key={photo.id} onClick={() => setSelectedPhoto(photo as PhonePhoto)}><img src={assetUrl(photo.url)} alt={photo.notes}/><span>{photo.date.split(' ')[0]}</span></button>)}</div>
+          <div className="phone-app-copy"><small>LIBRARY</small><h3>Recovered photos</h3><p>{photos.filter((item) => item.mediaType !== 'video').length} photos · {photos.filter((item) => item.mediaType === 'video').length} video</p></div>
+          <div className="phone-gallery">{photos.map((photo) => <button key={photo.id} className={photo.mediaType === 'video' ? 'is-video' : ''} onClick={() => setSelectedPhoto(photo as PhonePhoto)}>{photo.mediaType === 'video' ? <><video src={`${assetUrl(photo.url)}#t=1`} muted preload="metadata" playsInline /><Play className="gallery-play" /></> : <img src={assetUrl(photo.url)} alt={photo.notes ?? photo.filename} loading="lazy" />}{(photo.mediaType === 'video' || /\d/.test(photo.date)) && <span>{photo.mediaType === 'video' ? photo.duration : photo.date.split(' ')[0]}</span>}</button>)}</div>
         </>
       )}
       {view === 'notes' && !selectedNote && (
