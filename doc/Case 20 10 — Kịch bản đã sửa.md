@@ -14,13 +14,14 @@ Tối 19/10, lúc 20:10, ông Minh đột ngột mất tích. Cảnh sát chỉ 
 
 Kho B nằm cạnh văn phòng quỹ. Mọi khu bên trong kho B đều dùng thẻ ra vào; nhật ký thẻ chạy theo giờ máy chủ, độc lập với hệ thống camera.
 
-- **Cổng chính kho B** — có bàn trực và thanh chắn; Cựu vệ sĩ trực tại đây.
+- **Cổng chính kho B** — có bàn trực và thanh chắn; Cựu vệ sĩ trực và ghi lại người vào kho.
 - **Khu lưu trữ B-19** — nơi cất chứng từ và két tiền mặt. Cửa B-19 chỉ có đầu đọc thẻ, **không có camera**.
 - **Hành lang B-19 → khu giao nhận** — do **camera C3** giám sát.
-- **Khu giao nhận** — nơi đỗ xe R2 và xe đẩy hàng; mượn xe phải quẹt thẻ.
+- **Khu giao nhận** — phía sau kho, nơi đỗ xe R1, R2, R3 và xe đẩy hàng; mượn xe phải quẹt thẻ.
 - **Phòng kỹ thuật** — nơi bảo trì hệ thống camera.
 - **Phòng hồ sơ hành chính** — ở đầu hành lang, xa B-19.
-- **Khu bảo vệ** — phòng làm việc của Bảo vệ nhà kho.
+- **Khu bảo vệ** (ngoài kho, cạnh cổng chính) — phòng làm việc của Bảo vệ nhà kho.
+- **Phòng điều phối vận chuyển** (ngoài kho) — nơi Tài xế vận chuyển làm việc.
 - **Văn phòng quỹ** (ngoài kho) — phòng họp, phòng khách, văn phòng kế toán.
 
 ## Thông tin nhân vật theo mã
@@ -31,7 +32,7 @@ Kho B nằm cạnh văn phòng quỹ. Mọi khu bên trong kho B đều dùng th
 - 19:58: Ông Minh nhận một tin nhắn, đọc xong thì tắt màn hình ngay.
 - 20:00: Ông Minh nói rằng mình có việc cần giải quyết liên quan đến hồ sơ lưu trữ.
 - 20:10: Tôi thử liên lạc với ông Minh nhưng không nhận được phản hồi.
-- 20:25: Tôi bắt đầu hỏi những người có mặt tại kho xem có ai nhìn thấy ông Minh hay không.
+- 20:25: Tôi gọi điện hỏi những người đang ở kho B xem có ai nhìn thấy ông Minh hay không.
 
 **Bí mật:** Ông Minh luôn chú ý tới số người có mặt trong các bức ảnh sự kiện.
 
@@ -116,11 +117,10 @@ Kho B nằm cạnh văn phòng quỹ. Mọi khu bên trong kho B đều dùng th
 
 ### 09 — A2-09 | Nhân viên hậu cần sự kiện
 
-- 19:44: Tôi thấy Trưởng ban sự kiện sử dụng xe đẩy hàng để vận chuyển các kiện quà.
-- 20:05: Tôi đang kiểm tra những vật dụng còn thiếu cho sự kiện ngày 20/10.
-- 20:14–20:22: Tôi mượn xe R3 chở mấy thùng vật dụng còn thiếu sang khu tập kết trong kho.
-- 20:18: Tôi nghe thấy tiếng động cơ từ phía khu giao nhận nhưng không chú ý chiếc xe nào.
-- 20:26: Tôi kiểm tra lại khu vực tập kết và thấy xe đẩy đã được trả về vị trí.
+- 19:44: Trưởng ban sự kiện nhắn cho tôi rằng chị đã lấy xe đẩy hàng để vận chuyển các kiện quà.
+- 20:05: Tôi đang kiểm tra những vật dụng còn thiếu cho sự kiện ngày 20/10 tại văn phòng quỹ.
+- 20:18: Tôi đi ngang tường rào phía sau kho B, nghe thấy tiếng động cơ từ khu giao nhận nhưng không nhìn thấy chiếc xe nào.
+- 20:26: Trưởng ban sự kiện nhắn rằng xe đẩy đã được trả về vị trí.
 
 **Bí mật:** "Ông Minh không muốn can thiệp vào nhân quả. Ông Minh chọn đứng ngoài cuộc chiến, nơi không ai có thể chạm tới."
 
@@ -142,11 +142,9 @@ Kho B nằm cạnh văn phòng quỹ. Mọi khu bên trong kho B đều dùng th
 
 - 19:52: Tôi đến kho B để xử lý một số công việc truyền thông cho sự kiện.
 - 20:10: Tôi đang ở khu giao nhận kiểm tra vật phẩm truyền thông cho sự kiện.
-- 20:10–20:30: Tôi không nhớ rõ mình đã làm gì trong khoảng thời gian này.
+- 20:30: Tôi gửi bản thảo thông cáo báo chí cho ban tổ chức rồi rời kho về nhà.
 
-**Bí mật:** Bạn bị mất một phần ký ức về tối 19/10. Những dòng trên là điều bạn *tin* đã xảy ra, chưa chắc là sự thật. Khi BTC phát phong bì 06, hãy mở ra để khôi phục ký ức.
-
-**Mục tiêu (trước khi mở phong bì 06):** Tìm hung thủ.
+**Mục tiêu:** Tìm hung thủ.
 
 ### 12 — A2-12 | Chánh thanh tra kiêm cố vấn pháp lý
 
@@ -163,20 +161,19 @@ Kho B nằm cạnh văn phòng quỹ. Mọi khu bên trong kho B đều dùng th
 
 - 19:47: Tôi đến kho B để tìm ông Minh, muốn giải quyết một số chuyện gia đình.
 - 19:59: Tôi dùng thẻ vào khu B-19 để tìm giấy tờ.
+- 20:45–21:00: Tôi mượn xe R3 đi một vòng quanh khu kho để tìm ông Minh.
 - 21:05: Tôi nhặt được thẻ A2-08 bị rơi ở khu giao nhận.
 
 **Đạo cụ:** Ảnh lớp cho Phase 1.
 
-**Bí mật:** Bạn đang tranh chấp tài sản gia đình với ông Minh. Chi tiết trong phong bì 05, BTC phát cho bạn ngay đầu game.
+**Bí mật:** Bạn đang tranh chấp tài sản gia đình với ông Minh.
 
-**Mục tiêu:** Xem phong bì 05.
+**Mục tiêu:** Tìm hung thủ.
 
 ### 14 — A2-14 | Tài xế vận chuyển
 
-- 19:50: Tôi kiểm tra lịch vận chuyển và các phương tiện tại khu giao nhận.
+- 19:50: Tôi kiểm tra lịch vận chuyển tại phòng điều phối.
 - 20:05: Tôi đang xử lý một số công việc liên quan đến lịch điều phối.
-- 20:08: Tôi mượn xe R1 chở một chuyến hàng sang địa điểm tập kết quà 20/10.
-- 20:31: Tôi trả xe R1 về khu giao nhận.
 
 **Đạo cụ:** Nhật ký sử dụng xe ở khu giao nhận.
 
@@ -186,7 +183,9 @@ Kho B nằm cạnh văn phòng quỹ. Mọi khu bên trong kho B đều dùng th
 
 - 19:38: Tôi đến kho để chuẩn bị quà cho sự kiện ngày 20/10.
 - 19:42–19:44: Tôi kiểm tra khu B-19 rồi dùng thẻ nhận một chiếc xe đẩy hàng.
+- 20:12: Tôi mượn xe R1 chở các kiện quà ra chỗ đỗ xe riêng của tôi.
 - 20:18: Tôi nghe thấy tiếng xe R2 khởi động nhưng đang bận kiểm tra các kiện quà nên không nhìn thấy người lái.
+- 20:21: Tôi trả xe R1 về khu giao nhận.
 - 20:26–20:31: Tôi trả xe đẩy và sau đó rời kho bằng xe riêng.
 
 **Bí mật:** Trưởng ban sự kiện, Kỹ thuật viên camera và Kế toán cùng vào kho trộm tiền. Cả ba đều muốn độc chiếm toàn bộ số tiền.
@@ -352,6 +351,19 @@ Người dùng điện thoại phụ đã trả tiền cho một người trung 
 
 Mã thẻ ra vào chính là mã người chơi (A2-xx). Hai nhật ký chỉ ghi mã, không ghi tên, nên ở Phase 1 người chơi phải hỏi nhau ai mang mã nào (và có thể bị nói dối). Sổ cấp thẻ ở Phase 2 cho phép đối chiếu.
 
+### Nhật ký vào kho B — bàn trực cổng chính
+
+Ghi chép tại bàn trực cổng chính tối 19/10. Chỉ ghi lượt vào.
+
+| Giờ | Mã thẻ | Ghi chú |
+| --- | --- | --- |
+| 19:30 | A2-08 | Nhận ca trực cổng |
+| 19:32 | A2-04 | Vào kho |
+| 19:38 | A2-15 | Vào kho |
+| 19:43 | A2-02 | Vào kho |
+| 19:47 | A2-13 | Vào kho — thẻ khách |
+| 19:52 | A2-11 | Vào kho |
+
 ### Nhật ký quẹt thẻ B-19 — A2-03 giữ, Phase 1
 
 Giờ máy chủ, độc lập với hệ thống camera. Chỉ ghi lượt vào, không ghi lượt ra.
@@ -361,9 +373,7 @@ Giờ máy chủ, độc lập với hệ thống camera. Chỉ ghi lượt vào
 | 19:36 | A2-04 | Vào B-19 |
 | 19:42 | A2-15 | Vào B-19 |
 | 19:46 | A2-02 | Vào B-19 |
-| 19:53 | A2-15 | Vào B-19 |
 | 19:59 | A2-13 | Vào B-19 |
-| 20:03 | Thẻ quản lý (ông Minh) | Vào B-19 |
 | 20:04 | A2-08 | Vào B-19 |
 
 ### Nhật ký sử dụng xe khu giao nhận — A2-14 giữ
@@ -371,12 +381,12 @@ Giờ máy chủ, độc lập với hệ thống camera. Chỉ ghi lượt vào
 | Giờ | Mã thẻ | Hoạt động |
 | --- | --- | --- |
 | 19:44 | A2-15 | Nhận xe đẩy XD-03 |
-| 20:08 | A2-14 | Mở khóa xe R1 |
-| 20:14 | A2-09 | Mở khóa xe R3 |
+| 20:12 | A2-15 | Mở khóa xe R1 |
 | 20:18 | A2-11 | Mở khóa xe R2 |
-| 20:22 | A2-09 | Trả xe R3 |
+| 20:21 | A2-15 | Trả xe R1 |
 | 20:26 | A2-15 | Trả xe đẩy XD-03 |
-| 20:31 | A2-14 | Trả xe R1 |
+| 20:45 | A2-13 | Mở khóa xe R3 |
+| 21:00 | A2-13 | Trả xe R3 |
 
 ### Sổ cấp thẻ kho B — A2-08 giữ, Phase 2
 
@@ -434,7 +444,7 @@ Chứng minh thẻ A2-08 đã bị người khác lấy cắp và tìm ra hung t
 Bạn là một trong ba người tham gia kế hoạch trộm tiền tại B-19. Bạn biết vị trí két sắt và khoản tiền cần lấy.
 
 - 19:51: Bạn mở két (cảnh báo đã bị Kỹ thuật viên camera vô hiệu hóa) và đóng tiền vào kiện KT-17.
-- 19:58: Bạn rời kho, trở về văn phòng kế toán.
+- 19:58: Bạn mang kiện KT-17 ra khỏi B-19, đặt lên xe đẩy của Trưởng ban sự kiện ở hành lang, rồi rời kho về văn phòng kế toán.
 - 20:11: Bạn chỉnh sửa chứng từ, chuyển khoản tiền bị đánh cắp thành chi phí sự kiện 20/10.
 
 **Mục tiêu**
@@ -447,7 +457,8 @@ Khiến Trưởng ban sự kiện và Kỹ thuật viên camera bị kết tội
 
 Bạn tham gia vụ trộm tiền tại B-19 cùng Kế toán và Kỹ thuật viên camera. Bạn giả chữ ký của nạn nhân để hợp thức hóa việc vận chuyển kiện KT-17 chứa số tiền bị đánh cắp.
 
-- 19:53: Bạn quay lại B-19, chất kiện KT-17 lên xe đẩy.
+- 19:58: Kế toán mang kiện KT-17 ra khỏi B-19 và đặt lên xe đẩy của bạn ở hành lang.
+- 20:12: Bạn mượn xe R1 chở kiện KT-17 lẫn trong các kiện quà ra xe riêng của mình.
 - 20:31: Bạn rời kho bằng xe cá nhân, mang kiện KT-17 tới địa điểm tập kết quà.
 
 **Mục tiêu**
@@ -494,6 +505,7 @@ Khiến Kế toán và Trưởng ban sự kiện bị kết tội trộm tiền,
 - 19:59: Bạn vào B-19 bằng thẻ A2-13 và lấy giấy tờ nhà đất. Lúc đó trong B-19 không có ai.
 - 20:02: Bạn rời B-19 sang phòng hồ sơ hành chính ở đầu hành lang.
 - 20:10: Bạn nghe tiếng va đập kim loại lớn từ phía B-19 và biết kế hoạch đã bắt đầu.
+- 20:45–21:00: Bạn mượn xe R3, giả vờ đi tìm chú quanh khu kho, để có cớ quay lại khu giao nhận.
 - 21:05: Bạn quay lại khu giao nhận kiểm tra thẻ A2-08 đã nằm đúng chỗ, rồi "nhặt" lên để làm nhân chứng chỉ về Cựu vệ sĩ.
 - 21:15: Bạn rời kho. 21:31 tới nhà người thân. 22:05 lái xe đi tiếp.
 - 22:15: Bạn rút phần tiền còn lại tại cây ATM gần Trạm tiếp vận số 02.
@@ -555,7 +567,7 @@ Bạn được phép nói dối, che giấu thông tin và đánh lạc hướng
 - Điện thoại ông Minh: tin nhắn tự hủy lúc 19:58 từ cùng số 0901 234 158.
 - Sổ cấp thẻ: thẻ khách của A2-13 đăng ký bằng số 0901 234 158.
 - Thẻ A2-01: lúc 19:58 ông Minh nhận một tin nhắn rồi tắt màn hình ngay, 2 phút sau thì xuống kho lưu trữ.
-- Nhật ký thẻ B-19: A2-13 vào lúc 19:59, trước ông Minh đúng 4 phút.
+- Nhật ký thẻ B-19: A2-13 vào lúc 19:59, chỉ 1 phút sau khi ông Minh nhận tin nhắn.
 - ĐT-05: xe của A2-13 "tiếp tục di chuyển" lúc 22:05 mà không rõ đi đâu.
 - A2-13 là người đưa thẻ A2-08 ra và hướng nghi ngờ về Cựu vệ sĩ.
 - Phase cuối: Mảnh ký ức nhỏ của A2-11 (người phụ nữ đeo khẩu trang lúc 22:20).
