@@ -115,7 +115,7 @@ export function WarehouseModule() {
             <div className="terminal-head"><Warehouse/><div><small>INDUSTRIAL ACCESS NODE</small><strong>WH-B / ENTRY 02</strong></div><span /></div>
             <div className="terminal-display">
               <small>{status === 'error' ? 'ACCESS DENIED' : status === 'opening' ? 'ACCESS GRANTED' : 'SECURITY LOCK ENGAGED'}</small>
-              <div>{Array.from({ length: Math.max(6, code.length) }, (_, index) => <span key={index}>{code[index] ? '●' : '—'}</span>)}</div>
+              <div>{Array.from({ length: Math.max(puzzles.phase2WarehouseCode.length, code.length) }, (_, index) => <span key={index}>{code[index] ? '●' : '—'}</span>)}</div>
               <p>{status === 'error' ? 'INVALID ACCESS SEQUENCE' : status === 'opening' ? 'DISENGAGING MAGNETIC BOLTS' : 'ENTER AUTHORIZATION SEQUENCE'}</p>
             </div>
             <NumericKeypad value={code} onChange={setCode} length={8} onSubmit={submit} disabled={status !== 'idle'} />

@@ -6,6 +6,7 @@ import {
   Database,
   FileText,
   Fingerprint,
+  Flag,
   LockKeyhole,
   Settings2,
   Smartphone,
@@ -20,6 +21,7 @@ import { PhoneModule } from './components/PhoneModule';
 import { LockedModule, ToastStack } from './components/ui';
 import { WarehouseModule } from './components/WarehouseModule';
 import { CaseDocumentsModule } from './components/CaseDocumentsModule';
+import { EndingModule } from './components/EndingModule';
 
 const navModules = [
   { id: 'phone' as const, label: 'Seized Phone', icon: Smartphone },
@@ -27,6 +29,7 @@ const navModules = [
   { id: 'b19' as const, label: 'Archive B-19', icon: Archive },
   { id: 'personnel' as const, label: 'Personnel Database', icon: Database },
   { id: 'case-documents' as const, label: 'Case Documents', icon: FileText },
+  { id: 'ending' as const, label: 'Final Verdict', icon: Flag },
 ];
 
 const posterUrl = `${import.meta.env.BASE_URL}evidence/poster/Poster.png`;
@@ -90,6 +93,7 @@ function AppShell() {
     if (id === 'phone') return game.phoneUnlocked ? 'UNLOCKED' : 'ACTIVE PUZZLE';
     if (id === 'warehouse') return game.warehouseBUnlocked ? 'UNLOCKED' : game.phoneUnlocked ? 'ACTIVE PUZZLE' : 'RESTRICTED';
     if (id === 'b19') return game.b19Unlocked ? 'UNLOCKED' : game.warehouseBUnlocked ? 'ACTIVE PUZZLE' : 'RESTRICTED';
+    if (id === 'ending' && game.secretEndingUnlocked) return 'SECRET FOUND';
     return game.b19Unlocked ? 'UNLOCKED' : 'RESTRICTED';
   };
 
@@ -111,6 +115,10 @@ function AppShell() {
         return game.b19Unlocked
           ? <CaseDocumentsModule />
           : <LockedModule title="Case Documents" detail="Tập tài liệu vụ án chỉ được mở sau khi hoàn tất kho lưu trữ B-19." requirement="Hoàn tất Archive B-19 ở Phase 03" onBack={() => game.setActiveModule('b19')} />;
+      case 'ending':
+        return game.b19Unlocked
+          ? <EndingModule />
+          : <LockedModule title="Final Verdict" detail="Đoạn kết vụ án chỉ được mở ở Phase 04." requirement="Hoàn tất Archive B-19 ở Phase 03" onBack={() => game.setActiveModule('b19')} />;
       default:
         return <PhoneModule />;
     }

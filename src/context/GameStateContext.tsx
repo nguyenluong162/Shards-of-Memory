@@ -9,18 +9,22 @@ import {
 } from 'react';
 import evidenceData from '../data/evidence.json';
 import gameConfig from '../data/game-config.json';
+import playersData from '../data/players.json';
 import puzzlesData from '../data/puzzles.json';
 import type {
   Assignment,
   GameState,
   KnownFact,
   ModuleId,
+  Player,
   PuzzlesConfig,
   ToastMessage,
 } from '../types';
 
 const STATE_KEY = 'CASE_20_10_V2_STATE';
 const ASSIGNMENT_KEY = 'CASE_20_10_PERSONNEL_V1';
+const PLAYER_NAMES_KEY = 'CASE_20_10_PLAYER_NAMES_V1';
+const basePlayers = playersData as Player[];
 
 const initialState: GameState = {
   currentPhase: 1,
@@ -30,6 +34,7 @@ const initialState: GameState = {
   phase1Complete: false,
   phase2Complete: false,
   phase3Complete: false,
+  secretEndingUnlocked: false,
   hintsEnabled: false,
   soundEnabled: true,
   knownFacts: gameConfig.initialKnownFacts as KnownFact[],
@@ -47,6 +52,8 @@ interface GameContextValue extends GameState {
   dismissToast: (id: string) => void;
   assignments: Assignment[];
   setAssignments: (assignments: Assignment[]) => void;
+  players: Player[];
+  setPlayerNames: (names: Record<string, string>) => void;
   enterCase: () => void;
   returnToOpening: () => void;
   unlockPhone: () => void;
@@ -56,6 +63,7 @@ interface GameContextValue extends GameState {
   unlockB19: () => void;
   lockB19: () => void;
   resetPhase3: () => void;
+  setSecretEndingUnlocked: (unlocked: boolean) => void;
   setPhase: (phase: number) => void;
   setHintsEnabled: (enabled: boolean) => void;
   setSoundEnabled: (enabled: boolean) => void;
@@ -84,6 +92,15 @@ const loadState = (): GameState => {
   }
 };
 
+const loadPlayerNames = (): Record<string, string> => {
+  try {
+    const saved = localStorage.getItem(PLAYER_NAMES_KEY);
+    return saved ? JSON.parse(saved) : {};
+  } catch {
+    return {};
+  }
+};
+
 const loadAssignments = (): Assignment[] => {
   try {
     const saved = localStorage.getItem(ASSIGNMENT_KEY);
@@ -99,6 +116,7 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [assignments, setAssignmentState] = useState<Assignment[]>(loadAssignments);
+  const [playerNames, setPlayerNameState] = useState<Record<string, string>>(loadPlayerNames);
 
   useEffect(() => {
     localStorage.setItem(STATE_KEY, JSON.stringify(state));
@@ -107,6 +125,15 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem(ASSIGNMENT_KEY, JSON.stringify(assignments));
   }, [assignments]);
+
+  useEffect(() => {
+    localStorage.setItem(PLAYER_NAMES_KEY, JSON.stringify(playerNames));
+  }, [playerNames]);
+
+  const players = useMemo(
+    () => basePlayers.map((player) => ({ ...player, displayName: playerNames[player.id]?.trim() || player.displayName })),
+    [playerNames],
+  );
 
   const notify = useCallback((tone: ToastMessage['tone'], title: string, detail: string) => {
     const id = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -159,6 +186,7 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
     phase1Complete: false,
     phase2Complete: false,
     phase3Complete: false,
+    secretEndingUnlocked: false,
     knownFacts: prev.knownFacts.filter((fact) => !['fact_phone_unlock', 'fact_warehouse_unlock', 'fact_b19_log'].includes(fact.id)),
     evidenceList: prev.evidenceList.map((item) => ['EV-02', 'EV-03', 'EV-04', 'EV-05', 'TL-02'].includes(item.id) ? { ...item, isUnlocked: false } : item),
   }));
@@ -198,6 +226,7 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
     b19Unlocked: false,
     phase2Complete: false,
     phase3Complete: false,
+    secretEndingUnlocked: false,
     knownFacts: prev.knownFacts.filter((fact) => !['fact_warehouse_unlock', 'fact_b19_log'].includes(fact.id)),
     evidenceList: prev.evidenceList.map((item) => ['EV-05', 'TL-02'].includes(item.id) ? { ...item, isUnlocked: false } : item),
   }));
@@ -234,6 +263,7 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
     ...prev,
     b19Unlocked: false,
     phase3Complete: false,
+    secretEndingUnlocked: false,
     currentPhase: prev.warehouseBUnlocked ? 3 : prev.phoneUnlocked ? 2 : 1,
     knownFacts: prev.knownFacts.filter((fact) => fact.id !== 'fact_b19_log'),
     evidenceList: prev.evidenceList.map((item) => item.id === 'TL-02' ? { ...item, isUnlocked: false } : item),
@@ -252,6 +282,15 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
     notify('success', 'Đã lưu phân vai', `${safe.length}/15 hồ sơ đã được gán.`);
   };
 
+  const setPlayerNames = (names: Record<string, string>) => {
+    const cleaned = Object.fromEntries(
+      Object.entries(names)
+        .map(([id, name]) => [id, name.trim()] as const)
+        .filter(([id, name]) => name && name !== basePlayers.find((player) => player.id === id)?.displayName),
+    );
+    setPlayerNameState(cleaned);
+  };
+
   const value = useMemo<GameContextValue>(() => ({
     ...state,
     activeModule,
@@ -262,6 +301,8 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
     dismissToast,
     assignments,
     setAssignments,
+    players,
+    setPlayerNames,
     enterCase,
     returnToOpening: () => {
       setState((prev) => ({ ...prev, hasEnteredCase: false }));
@@ -274,6 +315,7 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
     unlockB19,
     lockB19: resetPhase3,
     resetPhase3,
+    setSecretEndingUnlocked: (unlocked) => setState((prev) => ({ ...prev, secretEndingUnlocked: unlocked })),
     setPhase: (phase) => setState((prev) => ({ ...prev, currentPhase: phase })),
     setHintsEnabled: (enabled) => setState((prev) => ({ ...prev, hintsEnabled: enabled })),
     setSoundEnabled: (enabled) => setState((prev) => ({ ...prev, soundEnabled: enabled })),
@@ -284,7 +326,7 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
       setIsAdminOpen(false);
       notify('info', 'Đã reset game', 'Toàn bộ tiến trình đã trở về mặc định.');
     },
-  }), [state, activeModule, isAdminOpen, toasts, dismissToast, assignments, notify]);
+  }), [state, activeModule, isAdminOpen, toasts, dismissToast, assignments, players, notify]);
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 }

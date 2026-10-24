@@ -1,12 +1,10 @@
 import { useMemo, useState } from 'react';
 import { BadgeCheck, Search, ShieldQuestion, X } from 'lucide-react';
-import playersData from '../data/players.json';
 import rolesData from '../data/roles.json';
 import { useGameState } from '../context/GameStateContext';
 import type { Player, Role } from '../types';
 import { Avatar, BackButton, PageHeading } from './ui';
 
-const players = playersData as Player[];
 const roles = rolesData as Role[];
 const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
 
@@ -32,9 +30,10 @@ function ProfileModal({ player, role, onClose }: { player: Player; role?: Role; 
 }
 
 export function PersonnelDatabase() {
-  const { assignments, setActiveModule } = useGameState();
+  const { assignments, players, setActiveModule } = useGameState();
   const [query, setQuery] = useState('');
-  const [selected, setSelected] = useState<Player | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = players.find((player) => player.id === selectedId);
 
   const roleForPlayer = (playerId: string) => {
     const assignment = assignments.find((item) => item.playerId === playerId);
@@ -42,7 +41,7 @@ export function PersonnelDatabase() {
   };
 
   const records = useMemo(() => players.map((player) => ({ player, role: roleForPlayer(player.id) }))
-    .filter(({ player, role }) => `${player.displayName} ${role?.id ?? ''} ${role?.title ?? ''}`.toLowerCase().includes(query.toLowerCase())), [assignments, query]);
+    .filter(({ player, role }) => `${player.displayName} ${role?.id ?? ''} ${role?.title ?? ''}`.toLowerCase().includes(query.toLowerCase())), [assignments, players, query]);
 
   return (
     <>
@@ -55,7 +54,7 @@ export function PersonnelDatabase() {
       <section className="personnel-tools panel"><label className="inline-search"><Search/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Tìm theo tên, mã A2 hoặc chức danh..." /></label><div><span>{records.length} RECORDS SHOWN</span><span>LOCAL DATABASE</span></div></section>
       <section className="personnel-grid">
         {records.map(({ player, role }, index) => (
-          <button className="personnel-card" key={player.id} onClick={() => setSelected(player)}>
+          <button className="personnel-card" key={player.id} onClick={() => setSelectedId(player.id)}>
             <span className="card-index">{String(index + 1).padStart(2, '0')}</span>
             <Avatar src={assetUrl(player.avatarPath)} name={player.displayName} />
             <div className="personnel-data"><small>{role?.id ?? 'ROLE PENDING'}</small><h3>{player.displayName}</h3><p>{role?.title ?? 'Chưa phân vai'}</p></div>
@@ -64,7 +63,7 @@ export function PersonnelDatabase() {
         ))}
       </section>
       {!records.length && <div className="empty-state personnel-empty"><Search/><strong>Không có hồ sơ phù hợp</strong><p>Thử tìm bằng tên, mã A2 hoặc chức danh khác.</p></div>}
-      {selected && <ProfileModal player={selected} role={roleForPlayer(selected.id)} onClose={() => setSelected(null)} />}
+      {selected && <ProfileModal player={selected} role={roleForPlayer(selected.id)} onClose={() => setSelectedId(null)} />}
     </>
   );
 }

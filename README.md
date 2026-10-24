@@ -26,6 +26,14 @@ npm run preview
 - `src/data/roles.json`: chức danh cùng mô tả công khai.
 - `src/data/b19-access-log.json`: nội dung vật chứng TL-02.
 - `src/data/b19-board.json`: thế cờ Phase 3.
+- `src/data/endings.json`: các đoạn kết Phase 4 (điều kiện, kết luận, lời dẫn) và mã mở Secret Ending.
+- `src/data/classified.json`: nội dung Tài liệu mật — tóm tắt vụ án, đáp án, dòng thời gian thật; mục `secret: true` bị niêm phong tới khi mở Secret Ending.
+
+Video Tài liệu mật đọc từ `public/secret/1023.mp4` (không commit vì ~700MB). Tạo lại từ file gốc bằng:
+
+```bash
+ffmpeg -i doc/TaiLieuMat/1023.mov -c copy -movflags +faststart public/secret/1023.mp4
+```
 
 Ảnh người chơi đặt tại `public/avatars/player-01.jpg` đến `player-15.jpg`. Nếu ảnh chưa có hoặc tải lỗi, giao diện tự dùng avatar placeholder.
 

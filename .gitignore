@@ -5,3 +5,6 @@ dist/
 *.local
 .env
 .env.*
+# Video tài liệu mật (~700MB, vượt giới hạn GitHub)
+doc/TaiLieuMat/
+public/secret/

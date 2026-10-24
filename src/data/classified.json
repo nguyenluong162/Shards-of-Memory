@@ -1,0 +1,43 @@
+{
+  "briefing": [
+    "Ngày 20/10, Quỹ Hoa Hồng dự kiến tổ chức lễ công bố kết quả hoạt động và trao học bổng cho các nữ sinh có hoàn cảnh khó khăn.",
+    "Trương Nguyên Minh phụ trách giám sát tài chính của quỹ. Ông phát hiện nhiều khoản học bổng bị chuyển qua những công ty trung gian không rõ hoạt động, và tập hợp bằng chứng trong tập tài liệu mang tên Hồ sơ Hoa Hồng.",
+    "Tối 19/10, lúc 20:10, ông Minh đột ngột mất tích. 15 người từng tiếp xúc với ông hoặc có liên quan đến Quỹ Hoa Hồng được triệu tập để hỗ trợ điều tra."
+  ],
+  "solution": [
+    { "label": "Hung thủ bắt cóc", "value": "A2-11 — Trưởng bộ phận truyền thông, bí danh \"Mộc\"" },
+    { "label": "Chủ mưu", "value": "A2-12 — Chánh thanh tra kiêm cố vấn pháp lý" },
+    { "label": "Đồng phạm", "value": "A2-07 — Trưởng phụ trách ngân sách" },
+    { "label": "Vụ trộm KT-17", "value": "A2-04 Kế toán · A2-02 Kỹ thuật viên camera · A2-15 Trưởng ban sự kiện" },
+    { "label": "Nơi giam giữ", "value": "Trạm tiếp vận số 02 — xe R2" },
+    { "label": "Người dàn xếp", "value": "A2-13 — Người thân nạn nhân (cháu gái)", "secret": true }
+  ],
+  "timeline": [
+    { "time": "17/10", "text": "Số 0901 234 158 nhắn cho điện thoại phụ của A2-12: ông Minh sắp công bố Hồ sơ Hoa Hồng, đề nghị \"xử lý giúp\"." },
+    { "time": "18:00", "text": "Số 0901 234 158 báo giờ ông Minh xuống B-19, yêu cầu chuyển tiền trước 18:30." },
+    { "time": "18:00", "text": "Người gửi là A2-13, dùng SIM phụ để giấu danh tính với A2-12.", "secret": true },
+    { "time": "18:30", "text": "A2-12 chuyển một khoản tiền lớn, nội dung \"Cọc cho Mộc\"." },
+    { "time": "19:47", "text": "A2-13 vào kho B bằng thẻ khách, đăng ký bằng chính số 0901 234 158.", "secret": true },
+    { "time": "19:49", "text": "A2-02 gửi lệnh vô hiệu hóa cảnh báo két sắt B-19." },
+    { "time": "19:51", "text": "A2-04 mở két, đóng tiền vào kiện KT-17." },
+    { "time": "19:53", "text": "A2-08 để thẻ trong ngăn bàn trực rồi đi tuần bãi xe một mình." },
+    { "time": "19:55", "text": "A2-11 lấy cắp thẻ A2-08 từ ngăn bàn trực." },
+    { "time": "19:58", "text": "A2-04 đặt KT-17 lên xe đẩy của A2-15 rồi rời kho. Ông Minh nhận một tin nhắn tự hủy từ số 0901 234 158." },
+    { "time": "19:59", "text": "A2-13 vào B-19 và lấy giấy tờ nhà đất của gia đình.", "secret": true },
+    { "time": "20:03", "text": "Ông Minh vào B-19." },
+    { "time": "20:04", "text": "A2-11 dùng thẻ A2-08 vào B-19." },
+    { "time": "20:08", "text": "Camera C3 mất tín hiệu do lỗi bảo trì của A2-02; sự cố không được báo cáo." },
+    { "time": "20:10", "text": "A2-11 bịt mắt và bắt cóc ông Minh, đưa qua hành lang tới khu giao nhận." },
+    { "time": "20:11", "text": "A2-04 sửa chứng từ, ghi khoản thiếu hụt thành chi phí sự kiện 20/10." },
+    { "time": "20:12", "text": "A2-15 mượn xe R1 chở KT-17 lẫn trong các kiện quà." },
+    { "time": "20:15", "text": "A2-07 gọi cho A2-12, cuộc gọi dài 6 phút." },
+    { "time": "20:18", "text": "A2-11 dùng thẻ của chính mình mở khóa xe R2." },
+    { "time": "20:22", "text": "A2-11 bỏ lại thẻ A2-08 tại khu giao nhận để đổ tội." },
+    { "time": "20:24", "text": "Xe R2 rời khu giao nhận kho B." },
+    { "time": "20:40", "text": "KT-17 tới điểm tập kết quà. A2-12 nhắn \"Mọi người đã được yêu cầu giữ kín. Cắt liên lạc.\"" },
+    { "time": "20:53", "text": "R2 dừng tại Trạm tiếp vận số 02; 20:54 thiết bị giám sát hành trình bị ngắt." },
+    { "time": "21:05", "text": "A2-13 \"nhặt\" thẻ A2-08 để làm nhân chứng chỉ về Cựu vệ sĩ.", "secret": true },
+    { "time": "22:15", "text": "A2-13 rút phần tiền còn lại tại cây ATM gần Trạm tiếp vận số 02.", "secret": true },
+    { "time": "22:20", "text": "A2-13 trả tiền cho Mộc ở quán cà phê và đưa hắn cốc nước pha thuốc an thần gây mất trí nhớ ngắn hạn.", "secret": true }
+  ]
+}

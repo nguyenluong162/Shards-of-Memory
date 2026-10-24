@@ -95,12 +95,13 @@ function PhoneContent({ view, setView }: { view: PhoneView; setView: (view: Phon
 export function PhoneModule() {
   const { phoneUnlocked, puzzles, unlockPhone, soundEnabled } = useGameState();
   const [pin, setPin] = useState('');
+  const pinLength = puzzles.phase1PhonePin.length;
   const [status, setStatus] = useState<'idle' | 'error' | 'opening'>('idle');
   const [view, setView] = useState<PhoneView>('home');
-  const dots = useMemo(() => Array.from({ length: 4 }, (_, index) => index < pin.length), [pin]);
+  const dots = useMemo(() => Array.from({ length: pinLength }, (_, index) => index < pin.length), [pin, pinLength]);
 
   const submit = () => {
-    if (pin.length !== 4 || status === 'opening') return;
+    if (pin.length !== pinLength || status === 'opening') return;
     if (pin === puzzles.phase1PhonePin) {
       setStatus('opening');
       if (soundEnabled) playAudio.accessGranted();
@@ -115,7 +116,7 @@ export function PhoneModule() {
   useEffect(() => {
     if (phoneUnlocked) return;
     const handler = (event: KeyboardEvent) => {
-      if (/^[0-9]$/.test(event.key)) setPin((value) => value.length < 4 ? value + event.key : value);
+      if (/^[0-9]$/.test(event.key)) setPin((value) => value.length < pinLength ? value + event.key : value);
       if (event.key === 'Backspace') setPin((value) => value.slice(0, -1));
       if (event.key === 'Enter') submit();
       if (event.key === 'Escape') setPin('');
@@ -139,7 +140,7 @@ export function PhoneModule() {
                   <span className="lock-date">Tuesday, 12 March</span>
                   <strong>16:04</strong>
                   <div className="pin-area"><small>{status === 'error' ? 'INCORRECT PASSCODE' : status === 'opening' ? 'ACCESS GRANTED' : 'ENTER PASSCODE'}</small><div className="pin-dots">{dots.map((filled, index) => <span key={index} className={filled ? 'filled' : ''}/>)}</div></div>
-                  <NumericKeypad value={pin} onChange={setPin} length={4} onSubmit={submit} disabled={status !== 'idle'} />
+                  <NumericKeypad value={pin} onChange={setPin} length={pinLength} onSubmit={submit} disabled={status !== 'idle'} />
                   <p>Device passcode required</p>
                 </div>
               ) : <PhoneContent view={view} setView={setView} />}

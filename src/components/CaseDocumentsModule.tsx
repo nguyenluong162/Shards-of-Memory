@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { FileText, X } from 'lucide-react';
+import { FileText, Flag, X } from 'lucide-react';
 import { BackButton, PageHeading } from './ui';
 import { useGameState } from '../context/GameStateContext';
 import nhatKyQuetTheB19 from '../../doc/case-2010-tron-bo/3-dao-cu/DC-01-nhat-ky-quet-the-B19.png';
 import nhatKySuDungXe from '../../doc/case-2010-tron-bo/3-dao-cu/DC-02-nhat-ky-su-dung-xe.png';
 import soCapTheKhoB from '../../doc/case-2010-tron-bo/3-dao-cu/DC-03-so-cap-the-kho-B.png';
 import bangDoiChieuGiaoDich from '../../doc/case-2010-tron-bo/3-dao-cu/DC-04-bang-doi-chieu-giao-dich.png';
-import dienThoaiOngMinh from '../../doc/case-2010-tron-bo/3-dao-cu/DC-05-dien-thoai-ong-Minh.png';
 
 const documents = [
   { title: 'Nhật ký quẹt thẻ B-19', filename: 'DC-01-nhat-ky-quet-the-B19.png', image: nhatKyQuetTheB19 },
@@ -25,7 +24,12 @@ export function CaseDocumentsModule() {
         eyebrow="CASE FILES / PHASE 04 UNLOCKED"
         title="Tài liệu vụ án"
         detail="Tập tài liệu được thu hồi sau khi hoàn tất Phase 03."
-        action={<BackButton onClick={() => setActiveModule('b19')} label="ARCHIVE B-19" />}
+        action={(
+          <div className="heading-actions">
+            <BackButton onClick={() => setActiveModule('b19')} label="ARCHIVE B-19" />
+            <button className="solid-action" onClick={() => setActiveModule('ending')}><Flag size={14} /> FINAL VERDICT</button>
+          </div>
+        )}
       />
       <section className="case-documents-grid">
         {documents.map((document) => (

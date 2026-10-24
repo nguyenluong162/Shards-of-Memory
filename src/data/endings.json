@@ -1,0 +1,84 @@
+[
+  {
+    "id": "rescue",
+    "code": "ENDING A",
+    "kind": "main",
+    "title": "Đóa hồng còn nguyên",
+    "subtitle": "Kết thúc chính — Giải cứu nạn nhân",
+    "condition": "Chỉ đúng hung thủ A2-11 và yêu cầu điều tra xe vận chuyển R2 (ĐT-06).",
+    "verdict": [
+      { "label": "Hung thủ", "value": "A2-11 — Trưởng bộ phận truyền thông, bí danh \"Mộc\"" },
+      { "label": "Chủ mưu", "value": "A2-12 — Chánh thanh tra kiêm cố vấn pháp lý" },
+      { "label": "Đồng phạm", "value": "A2-07 — Trưởng phụ trách ngân sách" },
+      { "label": "Nạn nhân", "value": "Đã giải cứu tại Trạm tiếp vận số 02" }
+    ],
+    "narrative": [
+      "20:53, tín hiệu GPS của xe R2 dừng lại tại Trạm tiếp vận số 02. Một phút sau, thiết bị giám sát hành trình bị ngắt — nhưng dấu vết để lại đã đủ.",
+      "Chiếc thẻ A2-08 bỏ lại ở khu giao nhận chỉ là một lời nói dối được sắp đặt. Người mở khóa R2 lúc 20:18 là A2-11 — kẻ mang bí danh \"Mộc\".",
+      "Chiếc điện thoại phụ trong xe công vụ dẫn tổ điều tra tới Chánh thanh tra, người đã trả tiền để Hồ sơ Hoa Hồng không bao giờ được công bố, và cuộc gọi dài 6 phút với Trưởng phụ trách ngân sách lúc 20:15.",
+      "Tổ điều tra kiểm tra Trạm tiếp vận số 02. Ông Trương Nguyên Minh được giải cứu thành công.",
+      "Sáng 20/10, lễ trao học bổng vẫn diễn ra. Nhưng lần này, thứ được công bố là Hồ sơ Hoa Hồng."
+    ]
+  },
+  {
+    "id": "kt17",
+    "code": "ENDING B",
+    "kind": "side",
+    "title": "Kiện hàng KT-17",
+    "subtitle": "Kết thúc phụ — Vụ trộm tại B-19",
+    "condition": "Chứng minh vụ trộm tiền tại B-19 bằng ĐT-01, ĐT-02 và ĐT-04.",
+    "verdict": [
+      { "label": "Mở két", "value": "A2-04 — Kế toán" },
+      { "label": "Tắt cảnh báo", "value": "A2-02 — Kỹ thuật viên camera" },
+      { "label": "Vận chuyển", "value": "A2-15 — Trưởng ban sự kiện" },
+      { "label": "Tang vật", "value": "Kiện KT-17 chứa tiền mặt, kèm chữ ký cũ của nạn nhân" }
+    ],
+    "narrative": [
+      "Ba người vào B-19 tối hôm ấy với cùng một kế hoạch, và mỗi người mang theo một kế hoạch riêng để giữ trọn số tiền.",
+      "19:49, cảnh báo két sắt bị vô hiệu hóa từ tài khoản kỹ thuật. 19:51, két mở mà không một tín hiệu nào tới phòng bảo vệ. 19:58, kiện KT-17 rời B-19 trên chiếc xe đẩy của Trưởng ban sự kiện.",
+      "20:11, khoản thiếu hụt được ghi thành \"Chi phí tổ chức sự kiện 20/10\". 20:40, kiện KT-17 xuất hiện tại điểm tập kết quà, kèm một chữ ký cũ của ông Minh.",
+      "Họ không bắt cóc ai. Nhưng sự cố camera C3 lúc 20:08 — thứ không ai báo cáo — đã mở đường cho kẻ làm điều đó."
+    ]
+  },
+  {
+    "id": "buried",
+    "code": "ENDING C",
+    "kind": "bad",
+    "title": "Hồ sơ bị chôn vùi",
+    "subtitle": "Kết thúc thất bại — Kết luận sai",
+    "condition": "Kết luận sai hung thủ, hoặc không điều tra xe R2 trước khi hết giờ.",
+    "verdict": [
+      { "label": "Hung thủ", "value": "Chưa xác định" },
+      { "label": "Nạn nhân", "value": "Vẫn mất tích" },
+      { "label": "Hồ sơ Hoa Hồng", "value": "Không được công bố" }
+    ],
+    "narrative": [
+      "Chiếc thẻ A2-08 đã làm đúng việc nó được bỏ lại để làm: kéo mọi ánh mắt về phía Cựu vệ sĩ.",
+      "Không ai hỏi xe R2 đã đi đâu lúc 20:24. Tín hiệu GPS cuối cùng nằm yên trong máy chủ, chờ một lệnh điều tra không bao giờ đến.",
+      "Sáng 20/10, lễ trao học bổng diễn ra đúng kế hoạch. Những nữ sinh trong danh sách vẫn chưa nhận được đồng nào.",
+      "Ở đâu đó phía Đông thành phố, ông Minh vẫn đang chờ."
+    ]
+  },
+  {
+    "id": "orchestrator",
+    "code": "SECRET ENDING",
+    "kind": "secret",
+    "title": "Người dàn xếp",
+    "subtitle": "Kết thúc bí mật — Người viết kịch bản đêm 19/10",
+    "condition": "Khớp số điện thoại của kẻ trung gian giữa ĐT-07, điện thoại ông Minh và sổ cấp thẻ, rồi yêu cầu điều tra sâu xe A2-13.",
+    "unlockCodes": ["0901234158"],
+    "unlockPrompt": "Nhập số điện thoại của kẻ trung gian",
+    "verdict": [
+      { "label": "Người dàn xếp", "value": "A2-13 — Người thân nạn nhân (cháu gái)" },
+      { "label": "Hung thủ", "value": "A2-11 — \"Mộc\"" },
+      { "label": "Người trả tiền", "value": "A2-12 — Chánh thanh tra" },
+      { "label": "Vật chứng", "value": "SIM 0901 234 158, giấy tờ nhà đất \"Lưu trữ B-19\", biên lai ATM 22:15, thuốc an thần" }
+    ],
+    "narrative": [
+      "22:15, một khoản tiền mặt lớn được rút tại cây ATM gần Trạm tiếp vận số 02. 22:18, xe của A2-13 dừng tại quán cà phê cách trạm khoảng 300 m.",
+      "Mộc chỉ là đôi tay. Chánh thanh tra chỉ là chiếc ví.",
+      "Người viết nên toàn bộ kịch bản đêm 19/10 là người ông Minh tin nhất: đứa cháu gái gọi ông bằng \"chú\".",
+      "Cô không cần Hồ sơ Hoa Hồng bị chôn vùi. Cô chỉ cần chú mình biến mất đủ lâu để lấy đi thứ thuộc về cô."
+    ]
+  }
+]

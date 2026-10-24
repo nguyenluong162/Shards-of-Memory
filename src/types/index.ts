@@ -1,4 +1,4 @@
-export type ModuleId = 'phone' | 'warehouse' | 'b19' | 'personnel' | 'case-documents';
+export type ModuleId = 'phone' | 'warehouse' | 'b19' | 'personnel' | 'case-documents' | 'ending';
 
 export interface KnownFact {
   id: string;
@@ -84,6 +84,7 @@ export interface GameState {
   phase1Complete: boolean;
   phase2Complete: boolean;
   phase3Complete: boolean;
+  secretEndingUnlocked: boolean;
   hintsEnabled: boolean;
   soundEnabled: boolean;
   knownFacts: KnownFact[];

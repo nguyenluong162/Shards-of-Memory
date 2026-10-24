@@ -15,14 +15,12 @@ import {
   Warehouse,
   X,
 } from 'lucide-react';
-import playersData from '../data/players.json';
 import rolesData from '../data/roles.json';
 import gameConfig from '../data/game-config.json';
 import { useGameState } from '../context/GameStateContext';
-import type { Assignment, Player, Role } from '../types';
+import type { Assignment, Role } from '../types';
 import { Avatar } from './ui';
 
-const players = playersData as Player[];
 const roles = rolesData as Role[];
 const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
 
@@ -34,7 +32,9 @@ export function AdminPanel() {
   const [passcode, setPasscode] = useState('');
   const [authError, setAuthError] = useState(false);
   const [tab, setTab] = useState<AdminTab>('progress');
+  const { players } = game;
   const [draftAssignments, setDraftAssignments] = useState<Assignment[]>(game.assignments);
+  const [draftNames, setDraftNames] = useState<Record<string, string>>({});
   const [p1, setP1] = useState(game.puzzles.phase1PhonePin);
   const [p2, setP2] = useState(game.puzzles.phase2WarehouseCode);
   const [p3, setP3] = useState(game.puzzles.phase3B19Code);
@@ -42,6 +42,7 @@ export function AdminPanel() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => setDraftAssignments(game.assignments), [game.assignments]);
+  useEffect(() => setDraftNames(Object.fromEntries(players.map((player) => [player.id, player.displayName]))), [players]);
 
   if (!game.isAdminOpen) return null;
 
@@ -67,8 +68,8 @@ export function AdminPanel() {
     const phonePin = p1.trim();
     const warehouseCode = p2.trim();
     const b19Code = p3.trim();
-    if (!/^\d{4}$/.test(phonePin) || !/^\d{4,8}$/.test(warehouseCode) || !/^\d{4}$/.test(b19Code)) {
-      setDataMessage('Mã Phone/B-19 phải có 4 số; mã Warehouse cần từ 4–8 số.');
+    if (!/^\d{4,8}$/.test(phonePin) || !/^\d{4,8}$/.test(warehouseCode) || !/^\d{4}$/.test(b19Code)) {
+      setDataMessage('Mã Phone/Warehouse cần từ 4–8 số; mã B-19 phải có 4 số.');
       return;
     }
     game.updatePuzzlesConfig({
@@ -81,7 +82,7 @@ export function AdminPanel() {
   };
 
   const exportAssignments = () => {
-    const blob = new Blob([JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), assignments: game.assignments }, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), assignments: game.assignments, playerNames: Object.fromEntries(players.map((player) => [player.id, player.displayName])) }, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
     anchor.href = url;
@@ -93,7 +94,7 @@ export function AdminPanel() {
   const importAssignments = async (file?: File) => {
     if (!file) return;
     try {
-      const parsed = JSON.parse(await file.text()) as { assignments?: Assignment[] } | Assignment[];
+      const parsed = JSON.parse(await file.text()) as { assignments?: Assignment[]; playerNames?: Record<string, string> } | Assignment[];
       const imported = Array.isArray(parsed) ? parsed : parsed.assignments;
       if (!Array.isArray(imported)) throw new Error('Không tìm thấy danh sách assignments.');
       const playerIds = new Set(players.map((player) => player.id));
@@ -106,6 +107,7 @@ export function AdminPanel() {
         seenPlayers.add(item.playerId); seenRoles.add(item.roleId);
       });
       game.setAssignments(imported);
+      if (!Array.isArray(parsed) && parsed.playerNames) game.setPlayerNames(parsed.playerNames);
       setDataMessage(`Import thành công ${imported.length} assignments.`);
     } catch (error) {
       setDataMessage(error instanceof Error ? error.message : 'Không thể đọc file JSON.');
@@ -164,6 +166,7 @@ export function AdminPanel() {
                   <div className="override-list">{controlRows.map(({ label, icon: Icon, unlocked, unlock, lock }) => <div key={label}><Icon/><span><strong>{label}</strong><small>{unlocked ? 'UNLOCKED' : 'LOCKED'}</small></span><button className={unlocked ? 'danger' : ''} onClick={unlocked ? lock : unlock}>{unlocked ? <Lock/> : <ShieldCheck/>}{unlocked ? 'LOCK' : 'UNLOCK'}</button></div>)}</div>
                   <label className="toggle-row"><span><strong>GM HINTS</strong><small>Chỉ áp dụng Phase 1–2; không tạo hint cho B-19.</small></span><input type="checkbox" checked={game.hintsEnabled} onChange={(event) => game.setHintsEnabled(event.target.checked)}/></label>
                   <label className="toggle-row"><span><strong>SOUND EFFECTS</strong><small>Keypad, deny và unlock feedback.</small></span><input type="checkbox" checked={game.soundEnabled} onChange={(event) => game.setSoundEnabled(event.target.checked)}/></label>
+                  <label className="toggle-row"><span><strong>SECRET ENDING</strong><small>Mở đoạn kết Người dàn xếp và dữ liệu niêm phong trong Tài liệu mật.</small></span><input type="checkbox" checked={game.secretEndingUnlocked} onChange={(event) => game.setSecretEndingUnlocked(event.target.checked)}/></label>
                   <div className="phase-buttons"><span>SET CURRENT PHASE</span>{[1,2,3,4].map((phase) => <button key={phase} className={game.currentPhase === phase ? 'active' : ''} onClick={() => game.setPhase(phase)}>{phase}</button>)}</div>
                 </div>
               )}
@@ -172,7 +175,7 @@ export function AdminPanel() {
                 <div className="admin-section">
                   <div className="admin-section-title"><p><small>LIVE CONFIG</small><strong>Puzzle access codes</strong></p></div>
                   <p className="admin-help">Các thay đổi chỉ lưu trong trình duyệt hiện tại. Để thay đổi mặc định khi deploy, cập nhật <code>src/data/puzzles.json</code>.</p>
-                  <div className="puzzle-fields"><label>PHASE 01 · PHONE PIN<input inputMode="numeric" value={p1} onChange={(event) => setP1(event.target.value.replace(/\D/g, ''))} maxLength={4}/></label><label>PHASE 02 · WAREHOUSE CODE<input inputMode="numeric" value={p2} onChange={(event) => setP2(event.target.value.replace(/\D/g, ''))} maxLength={8}/></label><label>PHASE 03 · B-19 CODE<input inputMode="numeric" value={p3} onChange={(event) => setP3(event.target.value.replace(/\D/g, ''))} maxLength={4}/></label></div>
+                  <div className="puzzle-fields"><label>PHASE 01 · PHONE PIN<input inputMode="numeric" value={p1} onChange={(event) => setP1(event.target.value.replace(/\D/g, ''))} maxLength={8}/></label><label>PHASE 02 · WAREHOUSE CODE<input inputMode="numeric" value={p2} onChange={(event) => setP2(event.target.value.replace(/\D/g, ''))} maxLength={8}/></label><label>PHASE 03 · B-19 CODE<input inputMode="numeric" value={p3} onChange={(event) => setP3(event.target.value.replace(/\D/g, ''))} maxLength={4}/></label></div>
                   <button className="solid-action" onClick={savePuzzles}><Save/>SAVE PUZZLE CONFIG</button>
                   {dataMessage && <p className="admin-message">{dataMessage}</p>}
                 </div>
@@ -180,22 +183,22 @@ export function AdminPanel() {
 
               {tab === 'personnel' && (
                 <div className="admin-section personnel-admin">
-                  <div className="admin-section-title"><p><small>PERSONNEL ASSIGNMENT</small><strong>Player → A2 role mapping</strong></p><span>{draftAssignments.length}/15 ASSIGNED</span></div>
-                  <p className="admin-help">Mỗi người và mỗi role chỉ được sử dụng một lần. Role đã chọn sẽ bị khóa ở các hồ sơ khác.</p>
+                  <div className="admin-section-title"><p><small>PERSONNEL ASSIGNMENT</small><strong>Player name &amp; A2 role mapping</strong></p><span>{draftAssignments.length}/15 ASSIGNED</span></div>
+                  <p className="admin-help">Bấm vào tên để đổi tên người chơi; để trống sẽ dùng tên mặc định. Mỗi người và mỗi role chỉ được sử dụng một lần. Role đã chọn sẽ bị khóa ở các hồ sơ khác.</p>
                   <div className="assignment-summary"><span><strong>{15 - draftAssignments.length}</strong> người chưa gán</span><span><strong>{15 - new Set(draftAssignments.map((item) => item.roleId)).size}</strong> role còn trống</span></div>
                   <div className="assignment-list">{players.map((player, index) => {
                     const current = draftAssignments.find((item) => item.playerId === player.id)?.roleId ?? '';
                     const used = new Set(draftAssignments.filter((item) => item.playerId !== player.id).map((item) => item.roleId));
-                    return <label key={player.id}><span><b>{String(index + 1).padStart(2, '0')}</b><Avatar src={assetUrl(player.avatarPath)} name={player.displayName}/><strong>{player.displayName}</strong></span><select value={current} onChange={(event) => assign(player.id, event.target.value)}><option value="">— Chưa phân vai —</option>{roles.map((role) => <option key={role.id} value={role.id} disabled={used.has(role.id)}>{role.title}{used.has(role.id) ? ' · đã gán' : ''}</option>)}</select></label>;
+                    return <label key={player.id}><span><b>{String(index + 1).padStart(2, '0')}</b><Avatar src={assetUrl(player.avatarPath)} name={player.displayName}/><input className="player-name-input" aria-label={`Tên người chơi ${index + 1}`} value={draftNames[player.id] ?? ''} placeholder={player.displayName} maxLength={40} onChange={(event) => setDraftNames((names) => ({ ...names, [player.id]: event.target.value }))}/></span><select value={current} onChange={(event) => assign(player.id, event.target.value)}><option value="">— Chưa phân vai —</option>{roles.map((role) => <option key={role.id} value={role.id} disabled={used.has(role.id)}>{role.title}{used.has(role.id) ? ' · đã gán' : ''}</option>)}</select></label>;
                   })}</div>
-                  <div className="admin-actions"><button className="ghost-action danger" onClick={() => window.confirm('Xóa toàn bộ phân vai?') && setDraftAssignments([])}><RotateCcw/>CLEAR DRAFT</button><button className="solid-action" onClick={() => game.setAssignments(draftAssignments)}><Save/>SAVE ASSIGNMENTS</button></div>
+                  <div className="admin-actions"><button className="ghost-action danger" onClick={() => window.confirm('Xóa toàn bộ phân vai?') && setDraftAssignments([])}><RotateCcw/>CLEAR DRAFT</button><button className="solid-action" onClick={() => { game.setPlayerNames(draftNames); game.setAssignments(draftAssignments); }}><Save/>SAVE PERSONNEL</button></div>
                 </div>
               )}
 
               {tab === 'data' && (
                 <div className="admin-section">
                   <div className="admin-section-title"><p><small>BACKUP & RESET</small><strong>Local session data tools</strong></p></div>
-                  <div className="data-actions"><button onClick={exportAssignments}><Download/><span><strong>Export assignments</strong><small>Tải file JSON phân vai về máy.</small></span></button><button onClick={() => fileRef.current?.click()}><Upload/><span><strong>Import assignments</strong><small>Kiểm tra ID và role trùng trước khi lưu.</small></span></button><input ref={fileRef} hidden type="file" accept=".json,application/json" onChange={(event) => importAssignments(event.target.files?.[0])}/></div>
+                  <div className="data-actions"><button onClick={exportAssignments}><Download/><span><strong>Export assignments</strong><small>Tải file JSON phân vai và tên người chơi về máy.</small></span></button><button onClick={() => fileRef.current?.click()}><Upload/><span><strong>Import assignments</strong><small>Kiểm tra ID và role trùng trước khi lưu.</small></span></button><input ref={fileRef} hidden type="file" accept=".json,application/json" onChange={(event) => importAssignments(event.target.files?.[0])}/></div>
                   {dataMessage && <p className="admin-message">{dataMessage}</p>}
                   <div className="session-zone">
                     <small>SESSION CONTROL</small>
