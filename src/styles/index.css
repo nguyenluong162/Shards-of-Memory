@@ -613,8 +613,6 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .ending-card h3 { margin:0;color:var(--paper);font-size:35.2px;letter-spacing:-.02em; }
 .ending-card.locked h3 { color:#5d5463;letter-spacing:.05em; }
 .ending-card-subtitle { margin:-6px 0 0;color:#8b9499;font-size:19.2px; }
-.ending-card-condition { margin:0;padding:11px 12px;border:1px solid #262c32;background:#0c0f12;color:#a3abb0;font-size:17.6px;line-height:1.6; }
-.ending-card-condition small { display:block;margin-bottom:4px;color:#69737a;font:800 12.8px ui-monospace,monospace;letter-spacing:.16em; }
 .ending-card-play { margin-top:auto;align-self:flex-start;min-height:36px;display:inline-flex;align-items:center;gap:8px;padding:0 14px;border:1px solid var(--ending-accent);background:transparent;color:var(--ending-accent);font:800 14.4px ui-monospace,monospace;letter-spacing:.12em;cursor:pointer; }
 .ending-card-play:hover { background:var(--ending-accent);color:#0b0d10; }
 .ending-secret-form { margin-top:auto;display:grid;gap:7px; }

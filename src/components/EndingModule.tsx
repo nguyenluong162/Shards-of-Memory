@@ -12,7 +12,6 @@ interface Ending {
   kind: 'main' | 'side' | 'bad' | 'secret';
   title: string;
   subtitle: string;
-  condition: string;
   verdict: { label: string; value: string }[];
   narrative: string[];
   unlockCodes?: string[];
@@ -116,7 +115,6 @@ export function EndingModule() {
               </header>
               <h3>{locked ? '██████ ██ ███' : ending.title}</h3>
               <p className="ending-card-subtitle">{locked ? 'Kết thúc bí mật — chưa được giải mã' : ending.subtitle}</p>
-              <p className="ending-card-condition"><small>ĐIỀU KIỆN</small>{ending.condition}</p>
               {locked
                 ? <SecretUnlock ending={ending} onUnlocked={() => { setSecretEndingUnlocked(true); setActiveEnding(ending); }} />
                 : <button className="ending-card-play" onClick={() => setActiveEnding(ending)}>XEM ĐOẠN KẾT <ChevronRight size={14} /></button>}
